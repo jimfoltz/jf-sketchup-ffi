@@ -1,5 +1,8 @@
 # jf-sketchup-ffi
 
+
+alpha & incomplete.
+
 ## Examples
 
 ### Writing to a .skp file
