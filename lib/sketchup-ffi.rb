@@ -141,118 +141,118 @@ module SketchupFFI
       const_get(ref_name).send :layout, :ptr, :pointer
    }
 
-   typedef :pointer, :int_ptr
-      typedef :pointer, :double_ptr
-         typedef :pointer, :size_ptr
+   typedef(:pointer, :int_ptr)
+   typedef(:pointer, :double_ptr)
+   typedef(:pointer, :size_ptr)
 
-            class SUPoint3d < FFI::Struct
-               layout :x, :double,
-                  :y, :double,
-                  :z, :double
-               def self.create(x = 0, y = 0, z = 0)
-                  pt = new
-                  pt[:x] = x
-                  pt[:y] = y
-                  pt[:z] = z
-                  pt
-               end
-            end
-
-            class SUColor < FFI::Struct
-               layout :red, :uchar,
-                  :green, :uchar,
-                  :blue, :uchar,
-                  :alpha, :uchar
-               def self.create(red = 0, green = 0, blue = 0, alpha = 255)
-                  color = new
-                  color[:red]   = red
-                  color[:green] = green
-                  color[:blue]  = blue
-                  color[:alpha] = alpha
-                  color
-               end
-            end
-
-            attach_function(:SUInitialize, [], :void)
-            attach_function(:SUTerminate, [], :void)
-
-            attach_function(:SUAttributeDictionaryGetKeys, [SUAttributeDictionaryRef, :size_t, SUStringRef, :size_ptr], :SUResult)
-            attach_function(:SUAttributeDictionaryGetName, [SUAttributeDictionaryRef, SUStringRef], :SUResult)
-            attach_function(:SUAttributeDictionaryGetNumKeys, [SUAttributeDictionaryRef, :size_ptr], :SUResult)
-            attach_function(:SUAttributeDictionaryGetValue, [SUAttributeDictionaryRef, :string, :pointer], :SUResult)
-            attach_function(:SUAttributeDictionarySetValue, [SUAttributeDictionaryRef, :string, SUTypedValueRef], :SUResult)
-            attach_function(:SUDrawingElementSetMaterial, [SUDrawingElementRef, SUMaterialRef], :SUResult)
-            attach_function(:SUEdgeCreate, [SUEdgeRef, SUPoint3d, SUPoint3d], :SUResult)
-            attach_function(:SUEdgeGetStartVertex, [SUEdgeRef, SUVertexRef], :SUResult)
-            attach_function(:SUEdgeSetColor, [SUEdgeRef, SUColor], :SUResult)
-            attach_function(:SUEdgeToDrawingElement, [SUEdgeRef], SUDrawingElementRef)
-            attach_function(:SUEntitiesAddEdges, [SUEntitiesRef, :size_t, :pointer], :SUResult)
-            attach_function(:SUEntitiesAddFaces, [SUEntitiesRef, :size_t, :pointer], :SUResult)
-            attach_function(:SUEntitiesAddGuidePoints, [SUEntitiesRef, :size_t, :pointer], :SUResult)
-            attach_function(:SUFaceCreate, [SUFaceRef, :pointer, SULoopInputRef], :SUResult)
-            attach_function(:SUFaceCreateSimple, [SUFaceRef, :pointer, :size_t], :SUResult)
-            attach_function(:SUFaceRelease, [SUFaceRef], :SUResult)
-            attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
-            attach_function(:SUGuidePointCreate, [SUGuidePointRef, :pointer], :SUResult)
-            attach_function(:SULoopInputAddVertexIndex, [SULoopInputRef, :size_t], :SUResult)
-            attach_function(:SULoopInputCreate, [SULoopInputRef], :SUResult)
-            attach_function(:SUMaterialCreate, [SUMaterialRef], :SUResult)
-            attach_function(:SUMaterialSetColor, [SUMaterialRef, SUColor], :SUResult)
-            attach_function(:SUMaterialSetName, [SUMaterialRef, :string], :SUResult)
-            attach_function(:SUModelAddMaterials, [SUModelRef, :size_t, SUMaterialRef], :SUResult)
-            attach_function(:SUModelCreate, [SUModelRef], :SUResult)
-            attach_function(:SUModelCreateFromFile, [SUModelRef, :string], :SUResult)
-            attach_function(:SUModelGetAttributeDictionaries, [SUModelRef, :size_t, :pointer, :pointer], :SUResult)
-            attach_function(:SUModelGetAttributeDictionary, [SUModelRef, :string, SUAttributeDictionaryRef], :SUResult)
-            attach_function(:SUModelGetAxes, [SUModelRef, :pointer], :SUResult)
-            attach_function(:SUModelGetEntities, [SUModelRef, SUEntitiesRef], :SUResult)
-            attach_function(:SUModelGetName, [SUModelRef, SUStringRef], :SUResult)
-            attach_function(:SUModelGetNumAttributeDictionaries, [SUModelRef, :int_ptr], :SUResult)
-            attach_function(:SUModelGetVersion, [SUModelRef, :int_ptr, :int_ptr, :int_ptr], :SUResult)
-            attach_function(:SUModelRelease, [SUModelRef], :SUResult)
-            attach_function(:SUModelSaveToFile, [SUModelRef, :string], :SUResult)
-            attach_function(:SUModelSaveToFileWithVersion, [SUModelRef, :string, SUModelVersion], :SUResult)
-            attach_function(:SUModelSetName, [SUModelRef, :string], :SUResult)
-            attach_function(:SUPoint3DDistanceToSUPoint3D, [SUPoint3d, SUPoint3d, :double_ptr], :SUResult)
-            attach_function(:SUStringCreate, [SUStringRef], :SUResult)
-            attach_function(:SUStringGetUTF8, [SUStringRef, :size_t, :pointer, :pointer], :SUResult)
-            attach_function(:SUStringGetUTF8Length, [SUStringRef, :pointer], :SUResult)
-            attach_function(:SUStringRelease, [SUStringRef], :SUResult)
-            attach_function(:SUTypedValueCreate, [SUTypedValueRef], :SUResult)
-            attach_function(:SUTypedValueGetInt32, [SUTypedValueRef, :int_ptr], :SUResult)
-            attach_function(:SUTypedValueGetString, [SUTypedValueRef, SUStringRef], :SUResult)
-            attach_function(:SUTypedValueGetType, [SUTypedValueRef, :pointer], :SUResult)
-            attach_function(:SUVertexGetNumEdges, [SUVertexRef, :int_ptr], :SUResult)
-
-            # @return [String]
-            def self.api_version
-               major = FFI::MemoryPointer.new(:int)
-               minor = FFI::MemoryPointer.new(:int)
-               get_api_version(major, minor)
-               "#{major.read_int}.#{minor.read_int}"
-            end
-
-            # helper
-            def self.get_string(ref)
-               n = FFI::MemoryPointer.new(:int)
-               res = SketchupFFI.string_get_utf8_length(ref[:ptr], n)
-               str = FFI::MemoryPointer.new(:string, n.read_int + 1)
-               res = SketchupFFI.string_get_utf8(ref[:ptr], n.read_int + 1, str, n)
-               str.read_string
-            end
-
-            def self.is_valid(ref)
-               ref[:ptr].address != 0
-            end
-
-            def self.is_invalid(ref)
-               ref[:ptr].address == 0
-            end
-
-            def self.are_equal(ref1, ref2)
-               ref1[:ptr].address == ref2[:ptr].address
-            end
-
-            extend self
-
+      class SUPoint3d < FFI::Struct
+         layout :x, :double,
+            :y, :double,
+            :z, :double
+         def self.create(x = 0, y = 0, z = 0)
+            pt = new
+            pt[:x] = x
+            pt[:y] = y
+            pt[:z] = z
+            pt
          end
+      end
+
+      class SUColor < FFI::Struct
+         layout :red, :uchar,
+            :green, :uchar,
+            :blue, :uchar,
+            :alpha, :uchar
+         def self.create(red = 0, green = 0, blue = 0, alpha = 255)
+            color = new
+            color[:red]   = red
+            color[:green] = green
+            color[:blue]  = blue
+            color[:alpha] = alpha
+            color
+         end
+      end
+
+      attach_function(:SUInitialize, [], :void)
+      attach_function(:SUTerminate, [], :void)
+
+      attach_function(:SUAttributeDictionaryGetKeys, [SUAttributeDictionaryRef, :size_t, SUStringRef, :size_ptr], :SUResult)
+      attach_function(:SUAttributeDictionaryGetName, [SUAttributeDictionaryRef, SUStringRef], :SUResult)
+      attach_function(:SUAttributeDictionaryGetNumKeys, [SUAttributeDictionaryRef, :size_ptr], :SUResult)
+      attach_function(:SUAttributeDictionaryGetValue, [SUAttributeDictionaryRef, :string, :pointer], :SUResult)
+      attach_function(:SUAttributeDictionarySetValue, [SUAttributeDictionaryRef, :string, SUTypedValueRef], :SUResult)
+      attach_function(:SUDrawingElementSetMaterial, [SUDrawingElementRef, SUMaterialRef], :SUResult)
+      attach_function(:SUEdgeCreate, [SUEdgeRef, SUPoint3d, SUPoint3d], :SUResult)
+      attach_function(:SUEdgeGetStartVertex, [SUEdgeRef, SUVertexRef], :SUResult)
+      attach_function(:SUEdgeSetColor, [SUEdgeRef, SUColor], :SUResult)
+      attach_function(:SUEdgeToDrawingElement, [SUEdgeRef], SUDrawingElementRef)
+      attach_function(:SUEntitiesAddEdges, [SUEntitiesRef, :size_t, :pointer], :SUResult)
+      attach_function(:SUEntitiesAddFaces, [SUEntitiesRef, :size_t, :pointer], :SUResult)
+      attach_function(:SUEntitiesAddGuidePoints, [SUEntitiesRef, :size_t, :pointer], :SUResult)
+      attach_function(:SUFaceCreate, [SUFaceRef, :pointer, SULoopInputRef], :SUResult)
+      attach_function(:SUFaceCreateSimple, [SUFaceRef, :pointer, :size_t], :SUResult)
+      attach_function(:SUFaceRelease, [SUFaceRef], :SUResult)
+      attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
+      attach_function(:SUGuidePointCreate, [SUGuidePointRef, :pointer], :SUResult)
+      attach_function(:SULoopInputAddVertexIndex, [SULoopInputRef, :size_t], :SUResult)
+      attach_function(:SULoopInputCreate, [SULoopInputRef], :SUResult)
+      attach_function(:SUMaterialCreate, [SUMaterialRef], :SUResult)
+      attach_function(:SUMaterialSetColor, [SUMaterialRef, SUColor], :SUResult)
+      attach_function(:SUMaterialSetName, [SUMaterialRef, :string], :SUResult)
+      attach_function(:SUModelAddMaterials, [SUModelRef, :size_t, SUMaterialRef], :SUResult)
+      attach_function(:SUModelCreate, [SUModelRef], :SUResult)
+      attach_function(:SUModelCreateFromFile, [SUModelRef, :string], :SUResult)
+      attach_function(:SUModelGetAttributeDictionaries, [SUModelRef, :size_t, :pointer, :pointer], :SUResult)
+      attach_function(:SUModelGetAttributeDictionary, [SUModelRef, :string, SUAttributeDictionaryRef], :SUResult)
+      attach_function(:SUModelGetAxes, [SUModelRef, :pointer], :SUResult)
+      attach_function(:SUModelGetEntities, [SUModelRef, SUEntitiesRef], :SUResult)
+      attach_function(:SUModelGetName, [SUModelRef, SUStringRef], :SUResult)
+      attach_function(:SUModelGetNumAttributeDictionaries, [SUModelRef, :int_ptr], :SUResult)
+      attach_function(:SUModelGetVersion, [SUModelRef, :int_ptr, :int_ptr, :int_ptr], :SUResult)
+      attach_function(:SUModelRelease, [SUModelRef], :SUResult)
+      attach_function(:SUModelSaveToFile, [SUModelRef, :string], :SUResult)
+      attach_function(:SUModelSaveToFileWithVersion, [SUModelRef, :string, SUModelVersion], :SUResult)
+      attach_function(:SUModelSetName, [SUModelRef, :string], :SUResult)
+      attach_function(:SUPoint3DDistanceToSUPoint3D, [SUPoint3d, SUPoint3d, :double_ptr], :SUResult)
+      attach_function(:SUStringCreate, [SUStringRef], :SUResult)
+      attach_function(:SUStringGetUTF8, [SUStringRef, :size_t, :pointer, :pointer], :SUResult)
+      attach_function(:SUStringGetUTF8Length, [SUStringRef, :pointer], :SUResult)
+      attach_function(:SUStringRelease, [SUStringRef], :SUResult)
+      attach_function(:SUTypedValueCreate, [SUTypedValueRef], :SUResult)
+      attach_function(:SUTypedValueGetInt32, [SUTypedValueRef, :int_ptr], :SUResult)
+      attach_function(:SUTypedValueGetString, [SUTypedValueRef, SUStringRef], :SUResult)
+      attach_function(:SUTypedValueGetType, [SUTypedValueRef, :pointer], :SUResult)
+      attach_function(:SUVertexGetNumEdges, [SUVertexRef, :int_ptr], :SUResult)
+
+      # @return [String]
+      def self.api_version
+         major = FFI::MemoryPointer.new(:int)
+         minor = FFI::MemoryPointer.new(:int)
+         get_api_version(major, minor)
+         "#{major.read_int}.#{minor.read_int}"
+      end
+
+      # helper
+      def self.get_string(ref)
+         n = FFI::MemoryPointer.new(:int)
+         res = SketchupFFI.string_get_utf8_length(ref[:ptr], n)
+         str = FFI::MemoryPointer.new(:string, n.read_int + 1)
+         res = SketchupFFI.string_get_utf8(ref[:ptr], n.read_int + 1, str, n)
+         str.read_string
+      end
+
+      def self.is_valid(ref)
+         ref[:ptr].address != 0
+      end
+
+      def self.is_invalid(ref)
+         ref[:ptr].address == 0
+      end
+
+      def self.are_equal(ref1, ref2)
+         ref1[:ptr].address == ref2[:ptr].address
+      end
+
+      extend self
+
+   end
