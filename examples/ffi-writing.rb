@@ -1,10 +1,3 @@
-# jf-sketchup-ffi
-
-## Examples
-
-### Writing to a .skp file
-
-```ruby
 require_relative '..\lib\sketchup-ffi'
 
 include SketchupFFI
@@ -16,7 +9,7 @@ initialize
 model = SUModelRef.new
 model_create(model)
 
-# Return codes are automatically checked for each function call.
+# Return codes are automatically checked from each function call.
 # A SUError exception is raised if the call fails.
 
 # Get the entities container of the model
@@ -65,4 +58,3 @@ model_release(model)
 
 # Always terminate the API when done
 terminate
-```
