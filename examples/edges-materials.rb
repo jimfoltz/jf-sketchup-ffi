@@ -65,7 +65,7 @@ p res
 
 if res == :SU_ERROR_NONE
    puts "Saving model."
-   model_save_to_file(model[:ptr], "model.skp")
+   model_save_to_file(model[:ptr], "#{File.basename(__FILE__, ".rb")}.skp")
 end
 
 terminate

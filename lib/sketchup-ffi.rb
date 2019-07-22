@@ -2,6 +2,13 @@ require 'ffi'
 
 module SketchupFFI
 
+   extend FFI::Library
+
+   ffi_lib File.join(File.dirname(__FILE__), "SketchupCommonPreferences.dll")
+   ffi_lib File.join(File.dirname(__FILE__), "SketchupAPI.dll")
+   #ffi_lib "C:/Program Files/SketchUp/SketchUp 2017/SketchUpAPI.dll"
+   #ffi_convention :stdcall
+
    # From Ruby Facets
    # https://github.com/rubyworks/facets/blob/master/lib/core/facets/string/snakecase.rb
    # Convert CamelCase to snake_case
@@ -15,21 +22,12 @@ module SketchupFFI
          downcase
    end
 
-   extend FFI::Library
-
-   ffi_lib File.join(File.dirname(__FILE__), "SketchupCommonPreferences.dll")
-   ffi_lib File.join(File.dirname(__FILE__), "SketchupAPI.dll")
-   #ffi_lib "C:/Program Files/SketchUp/SketchUp 2017/SketchUpAPI.dll"
-   #ffi_convention :stdcall
-
+   SUError = Class.new(StandardError)
 
    # https://github.com/Burgestrand/plaything/blob/2893c02b2d0750721152af0ca393af5df6c852ed/lib/plaything/openal.rb#L29
    #
    # 1 Convert SU* function names to Ruby style, dropping the su_ prefix
    # 2 Create a bang_name without error checking
-
-
-   SUError = Class.new(StandardError)
 
    def self.attach_function(c_name, params, returns, options = {})
       ruby_name = snakecase(c_name).gsub(/su_/, '').gsub(/3_d/, '3d')
@@ -39,7 +37,7 @@ module SketchupFFI
       rescue FFI::NotFoundError
          warn "FFI::NotFoundError: #{c_name} (#{ruby_name})."
          define_method(ruby_name) { |*args| raise NotImplementedError }
-         module_function ruby_name
+         #module_function ruby_name
          return
       end
       if returns == :SUResult
@@ -158,6 +156,19 @@ module SketchupFFI
       end
    end
 
+   class SUVector3d < FFI::Struct
+      layout :x, :double,
+         :y, :double,
+         :z, :double
+      def self.create(x = 0, y = 0, z = 0)
+         vector = new
+         vector[:x] = x
+         vector[:y] = y
+         vector[:z] = z
+         vector
+      end
+   end
+
    class SUColor < FFI::Struct
       layout :red, :uchar,
          :green, :uchar,
@@ -171,57 +182,94 @@ module SketchupFFI
          color[:alpha] = alpha
          color
       end
+      def to_s
+         "#<SUColor (#{self[:red]}, #{self[:green]}, #{self[:blue]}, #{self[:alpha]})>"
+      end
    end
 
    attach_function(:SUInitialize, [], :void)
    attach_function(:SUTerminate, [], :void)
+   attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
 
+   attach_function(:SUAttributeDictionaryCreate, [SUAttributeDictionaryRef, :string], :SUResult)
+   attach_function(:SUAttributeDictionaryRelease, [SUAttributeDictionaryRef], :SUResult)
+   attach_function(:SUAttributeDictionaryFromEntity, [SUEntityRef], SUAttributeDictionaryRef)
+   attach_function(:SUAttributeDictionaryToEntity, [SUAttributeDictionaryRef], SUEntityRef)
+   attach_function(:SUAttributeDictionaryGetNumKeys, [SUAttributeDictionaryRef, :size_ptr], :SUResult)
    attach_function(:SUAttributeDictionaryGetKeys, [SUAttributeDictionaryRef, :size_t, SUStringRef, :size_ptr], :SUResult)
    attach_function(:SUAttributeDictionaryGetName, [SUAttributeDictionaryRef, SUStringRef], :SUResult)
-   attach_function(:SUAttributeDictionaryGetNumKeys, [SUAttributeDictionaryRef, :size_ptr], :SUResult)
    attach_function(:SUAttributeDictionaryGetValue, [SUAttributeDictionaryRef, :string, :pointer], :SUResult)
    attach_function(:SUAttributeDictionarySetValue, [SUAttributeDictionaryRef, :string, SUTypedValueRef], :SUResult)
+
    attach_function(:SUDrawingElementSetMaterial, [SUDrawingElementRef, SUMaterialRef], :SUResult)
+
    attach_function(:SUEdgeCreate, [SUEdgeRef, SUPoint3d, SUPoint3d], :SUResult)
+   attach_function(:SUEdgeToDrawingElement, [SUEdgeRef], SUDrawingElementRef)
    attach_function(:SUEdgeGetStartVertex, [SUEdgeRef, SUVertexRef], :SUResult)
    attach_function(:SUEdgeSetColor, [SUEdgeRef, SUColor], :SUResult)
-   attach_function(:SUEdgeToDrawingElement, [SUEdgeRef], SUDrawingElementRef)
+
    attach_function(:SUEntitiesAddEdges, [SUEntitiesRef, :size_t, :pointer], :SUResult)
    attach_function(:SUEntitiesAddFaces, [SUEntitiesRef, :size_t, :pointer], :SUResult)
    attach_function(:SUEntitiesAddGuidePoints, [SUEntitiesRef, :size_t, :pointer], :SUResult)
+
    attach_function(:SUFaceCreate, [SUFaceRef, :pointer, SULoopInputRef], :SUResult)
    attach_function(:SUFaceCreateSimple, [SUFaceRef, :pointer, :size_t], :SUResult)
    attach_function(:SUFaceRelease, [SUFaceRef], :SUResult)
-   attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
+
    attach_function(:SUGuidePointCreate, [SUGuidePointRef, :pointer], :SUResult)
+
    attach_function(:SULoopInputAddVertexIndex, [SULoopInputRef, :size_t], :SUResult)
    attach_function(:SULoopInputCreate, [SULoopInputRef], :SUResult)
+
    attach_function(:SUMaterialCreate, [SUMaterialRef], :SUResult)
    attach_function(:SUMaterialSetColor, [SUMaterialRef, SUColor], :SUResult)
    attach_function(:SUMaterialSetName, [SUMaterialRef, :string], :SUResult)
+
    attach_function(:SUModelAddMaterials, [SUModelRef, :size_t, SUMaterialRef], :SUResult)
    attach_function(:SUModelCreate, [SUModelRef], :SUResult)
    attach_function(:SUModelCreateFromFile, [SUModelRef, :string], :SUResult)
+   attach_function(:SUModelGetNumAttributeDictionaries, [SUModelRef, :int_ptr], :SUResult)
    attach_function(:SUModelGetAttributeDictionaries, [SUModelRef, :size_t, :pointer, :pointer], :SUResult)
    attach_function(:SUModelGetAttributeDictionary, [SUModelRef, :string, SUAttributeDictionaryRef], :SUResult)
    attach_function(:SUModelGetAxes, [SUModelRef, :pointer], :SUResult)
    attach_function(:SUModelGetEntities, [SUModelRef, SUEntitiesRef], :SUResult)
    attach_function(:SUModelGetName, [SUModelRef, SUStringRef], :SUResult)
-   attach_function(:SUModelGetNumAttributeDictionaries, [SUModelRef, :int_ptr], :SUResult)
    attach_function(:SUModelGetVersion, [SUModelRef, :int_ptr, :int_ptr, :int_ptr], :SUResult)
    attach_function(:SUModelRelease, [SUModelRef], :SUResult)
    attach_function(:SUModelSaveToFile, [SUModelRef, :string], :SUResult)
    attach_function(:SUModelSaveToFileWithVersion, [SUModelRef, :string, SUModelVersion], :SUResult)
    attach_function(:SUModelSetName, [SUModelRef, :string], :SUResult)
+
    attach_function(:SUPoint3DDistanceToSUPoint3D, [SUPoint3d, SUPoint3d, :double_ptr], :SUResult)
+
    attach_function(:SUStringCreate, [SUStringRef], :SUResult)
    attach_function(:SUStringGetUTF8, [SUStringRef, :size_t, :pointer, :pointer], :SUResult)
    attach_function(:SUStringGetUTF8Length, [SUStringRef, :pointer], :SUResult)
    attach_function(:SUStringRelease, [SUStringRef], :SUResult)
+
    attach_function(:SUTypedValueCreate, [SUTypedValueRef], :SUResult)
-   attach_function(:SUTypedValueGetInt32, [SUTypedValueRef, :int_ptr], :SUResult)
-   attach_function(:SUTypedValueGetString, [SUTypedValueRef, SUStringRef], :SUResult)
+   attach_function(:SUTypedValueRelease, [SUTypedValueRef], :SUResult)
    attach_function(:SUTypedValueGetType, [SUTypedValueRef, :pointer], :SUResult)
+   attach_function(:SUTypedValueGetByte, [SUTypedValueRef, :string], :SUResult)
+   attach_function(:SUTypedValueSetByte, [SUTypedValueRef, :char], :SUResult)
+   attach_function(:SUTypedValueSetFloat, [SUTypedValueRef, :float], :SUResult)
+   attach_function(:SUTypedValueSetDouble, [SUTypedValueRef, :double], :SUResult)
+   attach_function(:SUTypedValueGetDouble, [SUTypedValueRef, :double_ptr], :SUResult)
+   attach_function(:SUTypedValueSetInt16, [SUTypedValueRef, :int16], :SUResult)
+   attach_function(:SUTypedValueGetInt16, [SUTypedValueRef, :int16], :SUResult)
+   attach_function(:SUTypedValueSetInt32, [SUTypedValueRef, :int32], :SUResult)
+   attach_function(:SUTypedValueGetInt32, [SUTypedValueRef, :pointer], :SUResult)
+   attach_function(:SUTypedValueSetString, [SUTypedValueRef, :string], :SUResult)
+   attach_function(:SUTypedValueGetString, [SUTypedValueRef, SUStringRef], :SUResult)
+   attach_function(:SUTypedValueGetBool, [SUTypedValueRef, :pointer], :SUResult)
+   attach_function(:SUTypedValueSetBool, [SUTypedValueRef, :bool], :SUResult)
+   attach_function(:SUTypedValueSetColor, [SUTypedValueRef, SUColor], :SUResult)
+   attach_function(:SUTypedValueGetColor, [SUTypedValueRef, :pointer], :SUResult)
+   attach_function(:SUTypedValueSetVector3d, [SUTypedValueRef, SUVector3d], :SUResult)
+   attach_function(:SUTypedValueGetVector3d, [SUTypedValueRef, :pointer], :SUResult)
+   attach_function(:SUTypedValueSetTime, [SUTypedValueRef, :int64], :SUResult)
+   attach_function(:SUTypedValueGetTime, [SUTypedValueRef, :pointer], :SUResult)
+
    attach_function(:SUVertexGetNumEdges, [SUVertexRef, :int_ptr], :SUResult)
 
    # @return [String]
@@ -241,18 +289,21 @@ module SketchupFFI
       str.read_string
    end
 
-   def self.is_valid(ref)
+   def self.is_valid?(ref)
       ref[:ptr].address != 0
    end
 
-   def self.is_invalid(ref)
+   def self.is_invalid?(ref)
       ref[:ptr].address == 0
    end
 
-   def self.are_equal(ref1, ref2)
+   def self.are_equal?(ref1, ref2)
       ref1[:ptr].address == ref2[:ptr].address
    end
 
-   extend self
+   def self.set_invalid(ref)
+      ref[:ptr] = 0
+   end
+
 
 end
