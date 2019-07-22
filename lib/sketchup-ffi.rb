@@ -142,6 +142,8 @@ module SketchupFFI
    typedef(:pointer, :int_ptr)
    typedef(:pointer, :double_ptr)
    typedef(:pointer, :size_ptr)
+   typedef :pointer, :int32_ptr
+   typedef :pointer, :int64_ptr
 
    class SUPoint3d < FFI::Struct
       layout :x, :double,
@@ -211,6 +213,15 @@ module SketchupFFI
    attach_function(:SUEntitiesAddEdges, [SUEntitiesRef, :size_t, :pointer], :SUResult)
    attach_function(:SUEntitiesAddFaces, [SUEntitiesRef, :size_t, :pointer], :SUResult)
    attach_function(:SUEntitiesAddGuidePoints, [SUEntitiesRef, :size_t, :pointer], :SUResult)
+
+   attach_function(:SUEntityGetID, [SUEntityRef, :int32_ptr], :SUResult)
+   attach_function(:SUEntityGetPersistentID, [SUEntityRef, :int64_ptr], :SUResult)
+   attach_function(:SUEntityGetNumAttributeDictionaries, [SUEntityRef, :size_ptr], :SUResult)
+   attach_function(:SUEntityGetAttributeDictionaries, [SUEntityRef, :size_t, SUAttributeDictionaryRef, :size_ptr], :SUResult)
+   attach_function(:SUEntityAddAttributeDictionary, [SUEntityRef, SUAttributeDictionaryRef], :SUResult)
+   attach_function(:SUEntityGetAttributeDictionary, [SUEntityRef, :string, SUAttributeDictionaryRef], :SUResult)
+   attach_function(:SUEntityGetModel, [SUEntityRef, SUModelRef], :SUResult)
+   attach_function(:SUEntityGetParentEntities, [SUEntityRef, SUEntitiesRef], :SUResult)
 
    attach_function(:SUFaceCreate, [SUFaceRef, :pointer, SULoopInputRef], :SUResult)
    attach_function(:SUFaceCreateSimple, [SUFaceRef, :pointer, :size_t], :SUResult)
