@@ -139,9 +139,9 @@ module SketchupFFI
       const_get(ref_name).send :layout, :ptr, :pointer
    }
 
-   typedef(:pointer, :int_ptr)
-   typedef(:pointer, :double_ptr)
-   typedef(:pointer, :size_ptr)
+   typedef :pointer, :int_ptr
+   typedef :pointer, :double_ptr
+   typedef :pointer, :size_ptr
    typedef :pointer, :int32_ptr
    typedef :pointer, :int64_ptr
 
@@ -159,9 +159,7 @@ module SketchupFFI
    end
 
    class SUVector3d < FFI::Struct
-      layout :x, :double,
-         :y, :double,
-         :z, :double
+      layout :x, :double, :y, :double, :z, :double
       def self.create(x = 0, y = 0, z = 0)
          vector = new
          vector[:x] = x
@@ -172,10 +170,7 @@ module SketchupFFI
    end
 
    class SUColor < FFI::Struct
-      layout :red, :uchar,
-         :green, :uchar,
-         :blue, :uchar,
-         :alpha, :uchar
+      layout :red, :uchar, :green, :uchar, :blue, :uchar, :alpha, :uchar
       def self.create(red = 0, green = 0, blue = 0, alpha = 255)
          color = new
          color[:red]   = red
