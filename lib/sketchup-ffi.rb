@@ -119,7 +119,9 @@ module SketchupFFI
 
   %w[
       AttributeDictionary
+      ArcCurve
       Axes
+      Curve
       DrawingElement
       Edge
       Entities
@@ -140,6 +142,7 @@ module SketchupFFI
     const_get(ref_name).send :layout, :ptr, :pointer
   }
 
+  typedef :pointer, :bool_ptr
   typedef :pointer, :int_ptr
   typedef :pointer, :double_ptr
   typedef :pointer, :size_ptr
@@ -201,7 +204,24 @@ module SketchupFFI
   attach_function(:SUTerminate, [], :void)
   attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
 
-  # Done
+  attach_function(:SUArcCurveCreate, [SUArcCurveRef, SUPoint3d, SUPoint3d, SUPoint3d, SUVector3d, :size_t], :SUResult)
+  attach_function(:SUArcCurveRelease, [SUArcCurveRef], :SUResult)
+  attach_function(:SUArcCurveFromEntity, [SUEntitiesRef], SUArcCurveRef)
+  attach_function(:SUArcCurveToEntity, [SUArcCurveRef], SUEntityRef)
+  attach_function(:SUArcCurveToCurve, [SUArcCurveRef], SUCurveRef)
+  attach_function(:SUArcCurveFromCurve, [SUCurveRef], SUArcCurveRef)
+  attach_function(:SUArcCurveGetRadius, [SUArcCurveRef, :double_ptr], :SUResult)
+  attach_function(:SUArcCurveGetCenter, [SUArcCurveRef, SUPoint3d], :SUResult)
+  attach_function(:SUArcCurveGetEndAngle, [SUArcCurveRef, :double_ptr], :SUResult)
+  attach_function(:SUArcCurveGetEndPoint, [SUArcCurveRef, SUPoint3d], :SUResult)
+  attach_function(:SUArcCurveGetIsFullCircle, [SUArcCurveRef, :bool_ptr], :SUResult)
+  attach_function(:SUArcCurveGetNormal, [SUArcCurveRef, SUVector3d], :SUResult)
+  attach_function(:SUArcCurveGetStartAngle, [SUArcCurveRef, :double_ptr], :SUResult)
+  attach_function(:SUArcCurveGetStartPoint, [SUArcCurveRef, SUPoint3d], :SUResult)
+  attach_function(:SUArcCurveGetXAxis, [SUArcCurveRef, SUVector3d], :SUResult)
+  attach_function(:SUArcCurveGetYAxis, [SUArcCurveRef, SUVector3d], :SUResult)
+  attach_function(:SUArcCurveRelease, [SUArcCurveRef], :SUResult)
+
   attach_function(:SUAttributeDictionaryCreate, [SUAttributeDictionaryRef, :string], :SUResult)
   attach_function(:SUAttributeDictionaryRelease, [SUAttributeDictionaryRef], :SUResult)
   attach_function(:SUAttributeDictionaryToEntity, [SUAttributeDictionaryRef], SUEntityRef)
@@ -230,7 +250,6 @@ module SketchupFFI
 
   attach_function(:SUBoundingBox3DGetMidPoint, [SUBoundingBox3d, SUPoint3d], :SUResult)
 
-  # Done
   attach_function(:SUDrawingElementToEntity, [SUDrawingElementRef], SUEntityRef)
   attach_function(:SUDrawingElementFromEntity, [SUEntityRef], SUDrawingElementRef)
   attach_function(:SUDrawingElementGetType, [SUDrawingElementRef], :SUResult)
