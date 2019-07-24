@@ -6,6 +6,7 @@ require_relative 'sketchup_ffi/base.rb'
 
 require_relative 'sketchup_ffi/defs.rb'
 
+require_relative 'sketchup_ffi/color.rb'
 require_relative 'sketchup_ffi/point3d.rb'
 
 require_relative 'sketchup_ffi/arc_curve.rb'
@@ -25,3 +26,4 @@ require_relative 'sketchup_ffi/rendering_options.rb'
 require_relative 'sketchup_ffi/string.rb'
 require_relative 'sketchup_ffi/typed_value.rb'
 require_relative 'sketchup_ffi/vertex.rb'
+

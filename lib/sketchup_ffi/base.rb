@@ -81,21 +81,6 @@ module SketchupFFI
   ]
 
 
-  SUModelVersion = enum(
-    :SUModelVersion_SU3,
-    :SUModelVersion_SU4,
-    :SUModelVersion_SU5,
-    :SUModelVersion_SU6,
-    :SUModelVersion_SU7,
-    :SUModelVersion_SU8,
-    :SUModelVersion_SU2013,
-    :SUModelVersion_SU2014,
-    :SUModelVersion_SU2015,
-    :SUModelVersion_SU2016,
-    :SUModelVersion_SU2017,
-    :SUModelVersion_SU2018,
-    :SUModelVersion_SU2019
-  )
 
   class SURef < FFI::Struct
     def valid?
@@ -118,8 +103,6 @@ module SketchupFFI
   typedef :pointer, :int64_ptr
 
 
-
-
   class SUVector3d < FFI::Struct
     layout :x, :double, :y, :double, :z, :double
     def self.create(x = 0, y = 0, z = 0)
@@ -128,21 +111,6 @@ module SketchupFFI
       vector[:y] = y
       vector[:z] = z
       vector
-    end
-  end
-
-  class SUColor < FFI::Struct
-    layout :red, :uchar, :green, :uchar, :blue, :uchar, :alpha, :uchar
-    def self.create(red = 0, green = 0, blue = 0, alpha = 255)
-      color = new
-      color[:red]   = red
-      color[:green] = green
-      color[:blue]  = blue
-      color[:alpha] = alpha
-      color
-    end
-    def to_s
-      "#<SUColor (#{self[:red]}, #{self[:green]}, #{self[:blue]}, #{self[:alpha]})>"
     end
   end
 
@@ -194,7 +162,5 @@ module SketchupFFI
   attach_function(:SUInitialize, [], :void)
   attach_function(:SUTerminate, [], :void)
   attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
-
-
 
 end # module SketchupFFI

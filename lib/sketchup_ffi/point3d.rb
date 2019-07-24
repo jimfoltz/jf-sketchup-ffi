@@ -1,5 +1,5 @@
-
-
+# point3d.rb
+#
 module SketchupFFI
 
   class SUPoint3d < FFI::Struct
