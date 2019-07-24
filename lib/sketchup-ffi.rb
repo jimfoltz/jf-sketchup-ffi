@@ -200,6 +200,41 @@ module SketchupFFI
     layout :a, :double, :b, :double, :c, :double, :d, :double
   end
 
+  # @return [String]
+  def self.api_version
+    major = FFI::MemoryPointer.new(:int)
+    minor = FFI::MemoryPointer.new(:int)
+    get_api_version(major, minor)
+    "#{major.read_int}.#{minor.read_int}"
+  end
+
+  # helper
+  def self.get_string(ref)
+    n = FFI::MemoryPointer.new(:int)
+    res = SketchupFFI.string_get_utf8_length(ref[:ptr], n)
+    str = FFI::MemoryPointer.new(:string, n.read_int + 1)
+    res = SketchupFFI.string_get_utf8(ref[:ptr], n.read_int + 1, str, n)
+    str.read_string
+  end
+
+  def self.is_valid?(ref)
+    ref[:ptr].address != 0
+  end
+
+  def self.is_invalid?(ref)
+    ref[:ptr].address == 0
+  end
+
+  def self.are_equal?(ref1, ref2)
+    ref1[:ptr].address == ref2[:ptr].address
+  end
+
+  def self.set_invalid(ref)
+    ref[:ptr] = 0
+  end
+
+
+
   attach_function(:SUInitialize, [], :void)
   attach_function(:SUTerminate, [], :void)
   attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
@@ -343,38 +378,4 @@ module SketchupFFI
 
   attach_function(:SUVertexGetNumEdges, [SUVertexRef, :int_ptr], :SUResult)
 
-  # @return [String]
-  def self.api_version
-    major = FFI::MemoryPointer.new(:int)
-    minor = FFI::MemoryPointer.new(:int)
-    get_api_version(major, minor)
-    "#{major.read_int}.#{minor.read_int}"
-  end
-
-  # helper
-  def self.get_string(ref)
-    n = FFI::MemoryPointer.new(:int)
-    res = SketchupFFI.string_get_utf8_length(ref[:ptr], n)
-    str = FFI::MemoryPointer.new(:string, n.read_int + 1)
-    res = SketchupFFI.string_get_utf8(ref[:ptr], n.read_int + 1, str, n)
-    str.read_string
-  end
-
-  def self.is_valid?(ref)
-    ref[:ptr].address != 0
-  end
-
-  def self.is_invalid?(ref)
-    ref[:ptr].address == 0
-  end
-
-  def self.are_equal?(ref1, ref2)
-    ref1[:ptr].address == ref2[:ptr].address
-  end
-
-  def self.set_invalid(ref)
-    ref[:ptr] = 0
-  end
-
-
-end
+end # module SketchupFFI
