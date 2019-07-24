@@ -6,9 +6,12 @@ require_relative 'sketchup_ffi/base.rb'
 
 require_relative 'sketchup_ffi/defs.rb'
 
+require_relative 'sketchup_ffi/point3d.rb'
+
 require_relative 'sketchup_ffi/arc_curve.rb'
 require_relative 'sketchup_ffi/attribute_dictionary.rb'
 require_relative 'sketchup_ffi/axes.rb'
+require_relative 'sketchup_ffi/bounding_box.rb'
 require_relative 'sketchup_ffi/drawing_element.rb'
 require_relative 'sketchup_ffi/edge.rb'
 require_relative 'sketchup_ffi/entities.rb'

@@ -118,19 +118,6 @@ module SketchupFFI
   typedef :pointer, :int64_ptr
 
 
-  class SUPoint3d < FFI::Struct
-
-    layout :x, :double, :y, :double, :z, :double
-
-    def self.create(x = 0, y = 0, z = 0)
-      pt = new
-      pt[:x] = x
-      pt[:y] = y
-      pt[:z] = z
-      pt
-    end
-
-  end
 
 
   class SUVector3d < FFI::Struct
@@ -208,9 +195,6 @@ module SketchupFFI
   attach_function(:SUTerminate, [], :void)
   attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
 
-  attach_function(:SUBoundingBox3DGetMidPoint, [SUBoundingBox3d, SUPoint3d], SUResult)
-
-  attach_function(:SUPoint3DDistanceToSUPoint3D, [SUPoint3d, SUPoint3d, :double_ptr], SUResult)
 
 
 end # module SketchupFFI
