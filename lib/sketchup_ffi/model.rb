@@ -16,5 +16,6 @@ module SketchupFFI
   attach_function(:SUModelSaveToFile, [SUModelRef, :string], SUResult)
   attach_function(:SUModelSaveToFileWithVersion, [SUModelRef, :string, SUModelVersion], SUResult)
   attach_function(:SUModelSetName, [SUModelRef, :string], SUResult)
+  attach_function(:SUModelGetRenderingOptions, [SUModelRef, SURenderingOptionsRef], SUResult)
 
 end

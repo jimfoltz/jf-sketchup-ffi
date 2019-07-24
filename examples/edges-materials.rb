@@ -63,6 +63,14 @@ edges.put_array_of_pointer(0, edges_ary.map{|e| e[:ptr]})
 res = entities_add_edges(ents[:ptr], edges_ary.length, edges)
 p res
 
+# Set the Edge Color By Material option
+r_opts = SURenderingOptionsRef.new
+model_get_rendering_options(model[:ptr], r_opts)
+value = SUTypedValueRef.new
+typed_value_set_byte(value, 0)
+rendering_options_set_value(r_opts[:ptr], "EdgeColorMode", value)
+
+
 if res == :SU_ERROR_NONE
    puts "Saving model."
    model_save_to_file_with_version(

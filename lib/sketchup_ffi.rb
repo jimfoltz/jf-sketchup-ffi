@@ -18,7 +18,7 @@ require_relative 'sketchup_ffi/guide_point.rb'
 require_relative 'sketchup_ffi/loop_input.rb'
 require_relative 'sketchup_ffi/material.rb'
 require_relative 'sketchup_ffi/model.rb'
+require_relative 'sketchup_ffi/rendering_options.rb'
 require_relative 'sketchup_ffi/string.rb'
 require_relative 'sketchup_ffi/typed_value.rb'
 require_relative 'sketchup_ffi/vertex.rb'
-
