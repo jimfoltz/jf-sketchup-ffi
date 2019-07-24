@@ -1,4 +1,4 @@
-require_relative '../lib/sketchup-ffi'
+require_relative '../lib/sketchup_ffi'
 
 include SketchupFFI
 

@@ -1,6 +1,6 @@
 # https://forums.sketchup.com/t/c-sdk-suedgesetcolor-seems-to-create-a-new-auto-material-for-every-call/98521
 
-require_relative '../lib/sketchup-ffi'
+require_relative '../lib/sketchup_ffi'
 
 include SketchupFFI
 
@@ -65,7 +65,11 @@ p res
 
 if res == :SU_ERROR_NONE
    puts "Saving model."
-   model_save_to_file(model[:ptr], "#{File.basename(__FILE__, ".rb")}.skp")
+   model_save_to_file_with_version(
+     model[:ptr],
+     "#{File.basename(__FILE__, ".rb")}.skp",
+     SUModelVersion[:SUModelVersion_SU2017]
+   )
 end
 
 terminate
