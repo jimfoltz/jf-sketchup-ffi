@@ -56,7 +56,7 @@ module SketchupFFI
     end
   end
 
-  SUResult = enum [
+  SUResult = enum(
     :SU_ERROR_NONE,
     :SU_ERROR_NULL_POINTER_INPUT,
     :SU_ERROR_INVALID_INPUT,
@@ -78,7 +78,7 @@ module SketchupFFI
     :SU_ERROR_INVALID_ARGUMENT,
     :SU_ERROR_ENTITY_LOCKED,
     :SU_ERROR_INVALID_OPERATION
-  ]
+  )
 
 
 
@@ -102,21 +102,6 @@ module SketchupFFI
   typedef :pointer, :int32_ptr
   typedef :pointer, :int64_ptr
 
-
-  class SUVector3d < FFI::Struct
-    layout :x, :double, :y, :double, :z, :double
-    def self.create(x = 0, y = 0, z = 0)
-      vector = new
-      vector[:x] = x
-      vector[:y] = y
-      vector[:z] = z
-      vector
-    end
-  end
-
-  class SUBoundingBox3d < FFI::Struct
-    # TODO
-  end
 
   class SUTransformation < FFI::Struct
     # TODO

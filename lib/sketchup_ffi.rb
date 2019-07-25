@@ -6,8 +6,10 @@ require_relative 'sketchup_ffi/base.rb'
 
 require_relative 'sketchup_ffi/defs.rb'
 
+# Structs
 require_relative 'sketchup_ffi/color.rb'
 require_relative 'sketchup_ffi/point3d.rb'
+require_relative 'sketchup_ffi/vector3d.rb'
 
 require_relative 'sketchup_ffi/arc_curve.rb'
 require_relative 'sketchup_ffi/attribute_dictionary.rb'
