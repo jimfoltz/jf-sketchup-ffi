@@ -4,10 +4,13 @@ module SketchupFFI
 
   extend FFI::Library
 
+  # if windows
   ffi_lib File.join(File.dirname(__FILE__), "SketchupCommonPreferences.dll")
   ffi_lib File.join(File.dirname(__FILE__), "SketchupAPI.dll")
   #ffi_lib "C:/Program Files/SketchUp/SketchUp 2017/SketchUpAPI.dll"
   #ffi_convention :stdcall
+  #else
+  #end
 
   # From Ruby Facets
   # https://github.com/rubyworks/facets/blob/master/lib/core/facets/string/snakecase.rb
@@ -143,9 +146,5 @@ module SketchupFFI
   def self.set_invalid(ref)
     ref[:ptr] = 0
   end
-
-  attach_function(:SUInitialize, [], :void)
-  attach_function(:SUTerminate, [], :void)
-  attach_function(:SUGetAPIVersion, [:int_ptr, :int_ptr], :int)
 
 end # module SketchupFFI
