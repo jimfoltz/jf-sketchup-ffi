@@ -119,5 +119,4 @@ module SketchupFFI
   attach_function(:SUModelGetAllMaterials, [SUModelRef, :size_t, SUMaterialRef, :size_ptr], SUResult)
   attach_function(:SUModelGetGuid, [SUModelRef, SUStringRef], SUResult)
 
-
 end

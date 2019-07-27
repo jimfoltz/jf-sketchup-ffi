@@ -3,18 +3,9 @@
 module SketchupFFI
 
   SUTypedValueType = enum(
-    :SUTypedValueType_Empty,
-    :SUTypedValueType_Byte,
-    :SUTypedValueType_Short,
-    :SUTypedValueType_Int32,
-    :SUTypedValueType_Float,
-    :SUTypedValueType_Double,
-    :SUTypedValueType_Bool,
-    :SUTypedValueType_Color,
-    :SUTypedValueType_Time,
-    :SUTypedValueType_String,
-    :SUTypedValueType_Vector3D,
-    :SUTypedValueType_Array
+    :Empty, :Byte,   :Short,    :Int32,
+    :Float, :Double, :Bool,     :Color,
+    :Time,  :String, :Vector3D, :Array
   )
 
   attach_function(:SUTypedValueCreate,      [SUTypedValueRef], SUResult)

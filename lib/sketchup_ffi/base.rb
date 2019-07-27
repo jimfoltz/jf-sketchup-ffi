@@ -34,7 +34,6 @@ module SketchupFFI
 
   def self.attach_function(c_name, params, returns, options = {})
     ruby_name = snakecase(c_name).gsub(/su_/, '').gsub(/3_d/, '3d')
-    #p ruby_name
     begin
       super(ruby_name, c_name, params, returns, options)
     rescue FFI::NotFoundError
