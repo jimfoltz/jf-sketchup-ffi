@@ -8,6 +8,6 @@ Gem::Specification.new do |s|
   s.authors = ['Jim Foltz']
   s.email = 'jim.foltz@gmail.com'
   s.homepage = 'https://github.com/jimfoltz/jf-sketchup-ffi'
-  s.files = Dir['lib/**/*.rb']
+  s.files = Dir['lib/**/*.*']
 end
 
