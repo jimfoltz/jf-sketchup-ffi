@@ -36,6 +36,7 @@ module SketchupFFI
     ruby_name = snakecase(c_name).gsub(/su_/, '').gsub(/3_d/, '3d')
     begin
       super(ruby_name, c_name, params, returns, options)
+      puts ruby_name
     rescue FFI::NotFoundError
       warn "FFI::NotFoundError: #{c_name} (#{ruby_name})."
       define_method(ruby_name) { |*args| raise NotImplementedError }
