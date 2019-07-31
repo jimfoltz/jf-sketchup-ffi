@@ -26,6 +26,7 @@ module SketchupFFI
   end
 
   SUError = Class.new(StandardError)
+  ATTACHED_FUNCTIONS = []
 
   # https://github.com/Burgestrand/plaything/blob/2893c02b2d0750721152af0ca393af5df6c852ed/lib/plaything/openal.rb#L29
   #
@@ -36,7 +37,7 @@ module SketchupFFI
     ruby_name = snakecase(c_name).gsub(/su_/, '').gsub(/3_d/, '3d')
     begin
       super(ruby_name, c_name, params, returns, options)
-      puts ruby_name
+      ATTACHED_FUNCTIONS << ruby_name
     rescue FFI::NotFoundError
       warn "FFI::NotFoundError: #{c_name} (#{ruby_name})."
       define_method(ruby_name) { |*args| raise NotImplementedError }
@@ -104,6 +105,7 @@ module SketchupFFI
   typedef :pointer, :size_ptr
   typedef :pointer, :int32_ptr
   typedef :pointer, :int64_ptr
+  #typedef :uchar, SUByte
 
 
   class SUTransformation < FFI::Struct
@@ -148,3 +150,4 @@ module SketchupFFI
   end
 
 end # module SketchupFFI
+
