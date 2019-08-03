@@ -80,7 +80,7 @@ require_relative "sketchup_ffi/vector3d.rb"
 require_relative "sketchup_ffi/vertex.rb"
 
 if $0 == __FILE__
-  puts  SketchupFFI::ATTACHED_FUNCTIONS.sort.uniq
+  puts  SketchupFFI::ATTACHED_FUNCTIONS.sort
   #SketchupFFI::H.each { |k, values|
   #  puts "\n\n## #{k}\n\n```"
   #  values.each {|f| puts "  #{f}"}
