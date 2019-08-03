@@ -1,8 +1,6 @@
-module SketchupFFI
+require_relative "geometry"
 
-  class SUBoundingBox3d < FFI::Struct
-    layout :min_point, SUPoint3d, :max_point, SUPoint3d
-  end
+module SketchupFFI
 
   attach_function(:SUBoundingBox3DGetMidPoint, [SUBoundingBox3d, SUPoint3d], SUResult)
 

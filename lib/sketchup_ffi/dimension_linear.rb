@@ -1,4 +1,4 @@
-require "sketchup_ffi/geometry"
+require_relative "geometry"
 
 module SketchupFFI
 

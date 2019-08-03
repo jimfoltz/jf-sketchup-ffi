@@ -1,4 +1,7 @@
 # arc-curve.rb
+#
+require_relative "geometry"
+
 module SketchupFFI
 
   attach_function(:SUArcCurveCreate, [SUArcCurveRef, SUPoint3d, SUPoint3d, SUPoint3d, SUVector3d, :size_t], SUResult)

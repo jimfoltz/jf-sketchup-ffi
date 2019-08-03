@@ -1,4 +1,3 @@
-
 module SketchupFFI
 
   attach_function(:SUClassificationInfoRelease, [SUClassificationInfoRef], SUResult)

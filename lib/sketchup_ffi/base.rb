@@ -1,4 +1,6 @@
+require 'yaml'
 require 'ffi'
+require_relative "snake_case"
 
 module SketchupFFI
 
@@ -12,21 +14,9 @@ module SketchupFFI
   #else
   #end
 
-  # From Ruby Facets
-  # https://github.com/rubyworks/facets/blob/master/lib/core/facets/string/snakecase.rb
-  # Convert CamelCase to snake_case
-  def self.snakecase(str)
-    str.to_s.
-      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-      gsub(/([a-z\d])([A-Z])/,'\1_\2').
-      tr('-', '_').
-      gsub(/\s/, '_').
-      gsub(/__+/, '_').
-      downcase
-  end
-
   SUError = Class.new(StandardError)
   ATTACHED_FUNCTIONS = []
+  UNATTACHED_FUNCTIONS = []
 
   # https://github.com/Burgestrand/plaything/blob/2893c02b2d0750721152af0ca393af5df6c852ed/lib/plaything/openal.rb#L29
   #
@@ -34,13 +24,14 @@ module SketchupFFI
   # 2 Create a bang_name without error checking
 
   def self.attach_function(c_name, params, returns, options = {})
-    ruby_name = snakecase(c_name).gsub(/su_/, '').gsub(/3_d/, '3d')
+    ruby_name = snakecase(c_name).gsub(/3_d/, '3d').gsub(/2_d/, '2d')
     begin
       super(ruby_name, c_name, params, returns, options)
       ATTACHED_FUNCTIONS << ruby_name
     rescue FFI::NotFoundError
       warn "FFI::NotFoundError: #{c_name} (#{ruby_name})."
       define_method(ruby_name) { |*args| raise NotImplementedError }
+      UNATTACHED_FUNCTIONS << ruby_name
       #module_function ruby_name
       return
     end
@@ -105,7 +96,9 @@ module SketchupFFI
   typedef :pointer, :size_ptr
   typedef :pointer, :int32_ptr
   typedef :pointer, :int64_ptr
-  #typedef :uchar, SUByte
+  typedef :pointer, :uint32_ptr
+  typedef :pointer, :long_ptr
+  typedef :uchar, :subyte
 
 
   class SUTransformation < FFI::Struct
