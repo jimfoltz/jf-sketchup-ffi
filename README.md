@@ -1,22 +1,17 @@
 # sketchup_ffi
 
-
-## What is this?
+## About
 
 `sketchup_ffi` is a Ruby [FFI](https://github.com/ffi/ffi) library which
 defines the data structures and functions of the [SketchUp
 SDK](https://extensions.sketchup.com/en/developer_center/sketchup_sdk) shared
 libraries.  
 
-I believe this library is in parity with the C SDK 2019.1.222 although I'm sure
-there some typos and bugs. Please open an
-[issue](https://github.com/jimfoltz/jf-sketchup-ffi/issues) if you find one.
 
-## Translating C function names to Ruby
+## Use
 
-The rule for transforming the C function names to ruby is pretty simple:
-
-  * Drop the first 2 characters "SU", and snake-case the rest. 
+The C function names are transformed into typical Ruby method names using a simple rule:
+  * Drop the first 2 characters "SU", snake-case and downcase.
 
 Here are some examples:
 
@@ -24,21 +19,41 @@ Here are some examples:
 | :--- | --- | :--- |
 | `SUModelCreate` |  | `model_create` |
 |`SUAxesGetYAxis` |  | `axes_get_y_axis` |
-| `SUVector3dAngleBetween` | | `vector3d_angle_between` |
+| `SUVector3DAngleBetween` | | `vector3d_angle_between` |
 
 See [methods.md](methods.md) for the full list.
 
-## FFI::NotFound
+
+The Ruby methods which return `SU_RESULT` will automatically raise an Exception
+if the return value is not euqal to `SU_ERROR_NONE`. If you want to handle the return
+value yourself, a "bang" method is also defined which does not raise an Exception.
+
+For example for the C function `SUModelCreate`, there are 2 Ruby methods defined:
+* `model_create` - Exception raise on `SU_ERROR_NONE`
+* `model_create!` - no Exception raised.
+
+
+
+
+<!--
+I believe this library is in parity with the SketchUp SDK version 2019.1.222 although I know
+there some incomplete definitions, typos and other bugs. Please open an
+[issue](https://github.com/jimfoltz/jf-sketchup-ffi/issues) if you find one.
+
+
+### Translating C function names to Ruby
+
+The rule for transforming the C function names to ruby is pretty simple:
+
+
+
+### FFI::NotFound
 
 Sketchup_ffi will attempt to create all defined c functions regardless
 if they exists in the shared library.  If a function does not exist, `FFI::NotFoundError`
 error will be printed but the ruby method is still defined. The Ruby method
 will raise a `NotImplemented` Exception.
 
-## SUResult
-
-If a c function returns a `SU_RESULT`, its Ruby equivalent will automatically raise a `SUError` exception
-if the return value is not `SU_ERROR_NONE`.
 
 If you want to handle the return value yourself, a "bang" method is also created without error checking. For example:
 
@@ -46,18 +61,16 @@ If you want to handle the return value yourself, a "bang" method is also created
 | :--- | :--- | :--- |
 | SUModelCreate | model_create | model_create! |
 
-
-
-
-
-
+-->
 
 ## Example Code
 
+See the examples directory for more examples. 
+
+### Writing to a .skp file
 This example is a direct translation of the official SketchUp SDK example for
 writing to a .skp file.
 
-### Writing to a .skp file
 
 ```ruby
 require_relative '..\lib\sketchup-ffi'
