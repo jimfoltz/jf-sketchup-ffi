@@ -76,38 +76,36 @@ module SketchupFFI
   )
 
 
-
-  class SURef < FFI::Struct
-    def valid?
-      self[:ptr].address != 0
-    end
-  end
-
-  def self.define_ref(sym)
-    ref_name = "SU#{sym}Ref"
-    #const_set(ref_name, Class.new(FFI::Struct))
-    const_set(ref_name, Class.new(SURef))
-    const_get(ref_name).send :layout, :ptr, :pointer
-  end
+  #class SURef < FFI::Struct
+  #  def valid?
+  #    self[:ptr].address != 0
+  #  end
+  #end
 
   typedef :pointer, :bool_ptr
   typedef :pointer, :int_ptr
+  typedef :pointer, :float_ptr
   typedef :pointer, :double_ptr
   typedef :pointer, :size_ptr
+  typedef :pointer, :int16_ptr
   typedef :pointer, :int32_ptr
   typedef :pointer, :int64_ptr
   typedef :pointer, :uint32_ptr
   typedef :pointer, :long_ptr
   typedef :uchar, :subyte
 
-
-  class SUTransformation < FFI::Struct
-    # TODO
+  class Time_tm < FFI::Struct
+    layout :tm_sec, :int,
+      :tm_min, :int,
+      :tm_hour, :int,
+      :tm_mday, :int,
+      :tm_mon, :int,
+      :tm_year, :int,
+      :tm_wday, :int,
+      :tm_yday, :int,
+      :tm_isdst, :int
   end
 
-  class SUPlane3d < FFI::Struct
-    layout :a, :double, :b, :double, :c, :double, :d, :double
-  end
 
   # @return [String]
   def self.api_version

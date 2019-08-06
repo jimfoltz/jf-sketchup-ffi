@@ -31,7 +31,7 @@ module SketchupFFI
   attach_function(:SUComponentDefinitionApplySchemaType, [SUComponentDefinitionRef, SUSchemaRef, SUSchemaTypeRef], SUResult)
   attach_function(:SUComponentDefinitionIsInternal, [SUComponentDefinitionRef, :bool_ptr], SUResult)
   attach_function(:SUComponentDefinitionGetPath, [SUComponentDefinitionRef, SUStringRef], SUResult)
-  #attach_function(:SUComponentDefinitionGetLoadTime, [SUComponentDefinitionRef, struct tm *load_time], SUResult)
+  attach_function(:SUComponentDefinitionGetLoadTime, [SUComponentDefinitionRef, Time_tm], SUResult)
   attach_function(:SUComponentDefinitionGetNumOpenings, [SUComponentDefinitionRef, :size_ptr], SUResult)
   attach_function(:SUComponentDefinitionGetOpenings, [SUComponentDefinitionRef, :size_t, SUOpeningRef, :size_ptr], SUResult)
   attach_function(:SUComponentDefinitionGetInsertPoint, [SUComponentDefinitionRef, SUPoint3d], SUResult)
