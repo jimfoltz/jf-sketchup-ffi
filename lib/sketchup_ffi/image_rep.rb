@@ -11,7 +11,7 @@ module SketchupFFI
   attach_function(:SUImageRepCreate,[SUImageRepRef], SUResult)
   attach_function(:SUImageRepRelease,[SUImageRepRef], SUResult)
   attach_function(:SUImageRepCopy,[SUImageRepRef, SUImageRepRef], SUResult)
-  attach_function(:SUImageRepSetData, [SUImageRepRef, :size_t, :size_t, :size_t, :size_t, :uchar], SUResult)
+  attach_function(:SUImageRepSetData, [SUImageRepRef, :size_t, :size_t, :size_t, :size_t, :subyte], SUResult)
   attach_function(:SUImageRepLoadFile, [SUImageRepRef, :string], SUResult)
   attach_function(:SUImageRepSaveToFile, [SUImageRepRef, :string], SUResult)
   attach_function(:SUImageRepGetPixelDimensions, [SUImageRepRef, :size_ptr, :size_ptr], SUResult)

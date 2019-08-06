@@ -2,7 +2,7 @@
 module SketchupFFI
 
   class SUColor < FFI::Struct
-    layout :red, :uchar, :green, :uchar, :blue, :uchar, :alpha, :uchar
+    layout :red, :subyte, :green, :subyte, :blue, :subyte, :alpha, :subyte
     def self.create(red = 0, green = 0, blue = 0, alpha = 255)
       color = new
       color[:red]   = red
