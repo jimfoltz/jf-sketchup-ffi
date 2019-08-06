@@ -1,4 +1,3 @@
-require 'yaml'
 require 'ffi'
 require_relative "snake_case"
 
@@ -27,10 +26,10 @@ module SketchupFFI
     ruby_name = snakecase(c_name).gsub(/3_d/, '3d').gsub(/2_d/, '2d')
     begin
       super(ruby_name, c_name, params, returns, options)
-      ATTACHED_FUNCTIONS << ruby_name
+      ATTACHED_FUNCTIONS << [c_name, ruby_name]
     rescue FFI::NotFoundError
       warn "FFI::NotFoundError: #{c_name} (#{ruby_name})."
-      define_method(ruby_name) { |*args| raise NotImplementedError }
+      define_method(ruby_name) { |*args, &block| raise NotImplementedError }
       UNATTACHED_FUNCTIONS << ruby_name
       #module_function ruby_name
       return
@@ -46,7 +45,7 @@ module SketchupFFI
         end
         result
       end
-      #module_function ruby_name
+      module_function ruby_name
       #module_function bang_name
     end
   end
@@ -117,9 +116,9 @@ module SketchupFFI
 
   # helper
   def self.get_string(ref)
-    n = FFI::MemoryPointer.new(:int)
+    n = FFI::MemoryPointer.new(:size_t)
     res = SketchupFFI.string_get_utf8_length(ref[:ptr], n)
-    str = FFI::MemoryPointer.new(:string, n.read_int + 1)
+    str = FFI::MemoryPointer.new(:buffer_out, n.read_int + 1)
     res = SketchupFFI.string_get_utf8(ref[:ptr], n.read_int + 1, str, n)
     str.read_string
   end

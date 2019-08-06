@@ -1,5 +1,6 @@
 
 module SketchupFFI
+
   class SUColorOrder < FFI::Struct
     layout :red_index, :short,
       :blue_index, :short,

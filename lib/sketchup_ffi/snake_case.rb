@@ -8,6 +8,8 @@ def snakecase(str)
     tr('-', '_').
     gsub(/\s/, '_').
     gsub(/__+/, '_').
+    gsub(/3_D/, '3d').
+    gsub(/2_D/, '2d').
     downcase
 end
 

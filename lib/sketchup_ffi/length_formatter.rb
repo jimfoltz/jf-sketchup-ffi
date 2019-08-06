@@ -32,7 +32,7 @@ module SketchupFFI
   )
 
   attach_function(:SULengthFormatterCreate, [SULengthFormatterRef], SUResult)
-  attach_function(:SULengthFormatterCreate, [SULengthFormatterRef], SUResult)
+  attach_function(:SULengthFormatterRelease, [SULengthFormatterRef], SUResult)
   attach_function(:SULengthFormatterGetPrecision, [SULengthFormatterRef, :size_ptr], SUResult)
   attach_function(:SULengthFormatterSetPrecision, [SULengthFormatterRef, :size_t], SUResult)
   attach_function(:SULengthFormatterGetFormat, [SULengthFormatterRef, SULengthFormatType], SUResult)

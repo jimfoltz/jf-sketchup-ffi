@@ -20,6 +20,5 @@ module SketchupFFI
   attach_function(:SUArcCurveGetStartPoint, [SUArcCurveRef, SUPoint3d], SUResult)
   attach_function(:SUArcCurveGetXAxis, [SUArcCurveRef, SUVector3d], SUResult)
   attach_function(:SUArcCurveGetYAxis, [SUArcCurveRef, SUVector3d], SUResult)
-  attach_function(:SUArcCurveRelease, [SUArcCurveRef], SUResult)
 
 end

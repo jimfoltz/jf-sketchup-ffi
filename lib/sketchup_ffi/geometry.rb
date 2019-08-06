@@ -55,4 +55,8 @@ module SketchupFFI
     layout :point, SUPoint3d, :normal, SUVector3d
   end
 
+  class SUTransformation < FFI::Struct
+    # TODO
+  end
+
 end

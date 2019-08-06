@@ -1,5 +1,6 @@
 module SketchupFFI
 
+  attach_function(:SUEntityGetType, [SUEntityRef], SURefType)
   attach_function(:SUEntityGetID, [SUEntityRef, :int32_ptr], SUResult)
   attach_function(:SUEntityGetPersistentID, [SUEntityRef, :int64_ptr], SUResult)
   attach_function(:SUEntityGetNumAttributeDictionaries, [SUEntityRef, :size_ptr], SUResult)

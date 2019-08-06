@@ -15,7 +15,6 @@ module SketchupFFI
   attach_function(:SUImageGetDimensions, [SUImageRef, :double_ptr, :double_ptr], SUResult)
   attach_function(:SUImageGetPixelDimensions, [SUImageRef, :size_ptr, :size_ptr], SUResult)
   attach_function(:SUImageGetDataSize, [SUImageRef, :size_ptr, :size_ptr], SUResult)
-  # TODO input buffer or something?
-  #attach_function(:SUImageGetData, [SUImageRef, :size_t, :uchar], SUResult)
+  attach_function(:SUImageGetData, [SUImageRef, :size_t, :subyte], SUResult)
 
 end

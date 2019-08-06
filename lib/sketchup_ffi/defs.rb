@@ -2,6 +2,13 @@
 
 module SketchupFFI
 
+  def self.define_ref(sym)
+    ref_name = "SU#{sym}Ref"
+    #const_set(ref_name, Class.new(SURef))
+    const_set(ref_name, Class.new(FFI::Struct))
+    const_get(ref_name).send :layout, :ptr, :pointer
+  end
+
   define_ref(:ArcCurve)
   define_ref(:AttributeDictionary)
   define_ref(:Axes)

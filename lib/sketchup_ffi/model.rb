@@ -30,6 +30,7 @@ module SketchupFFI
   attach_function(:SUModelCreate, [SUModelRef], SUResult)
   attach_function(:SUModelCreateFromFile, [SUModelRef, :string], SUResult)
   attach_function(:SUModelRelease, [SUModelRef], SUResult)
+  attach_function(:SUModelCreateFromBuffer, [SUModelRef, :string, :size_t], SUResult)
 
   attach_function(:SUModelGetEntities, [SUModelRef, SUEntitiesRef], SUResult)
 

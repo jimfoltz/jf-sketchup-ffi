@@ -11,7 +11,7 @@ module SketchupFFI
       color[:alpha] = alpha
       color
     end
-    def to_s
+    def inspect
       "#<SUColor (#{self[:red]}, #{self[:green]}, #{self[:blue]}, #{self[:alpha]})>"
     end
   end
