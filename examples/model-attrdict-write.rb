@@ -53,7 +53,8 @@ SketchupFFI.set_invalid value
 typed_value_set_vector3d(value, vector)
 attribute_dictionary_set_value(dict[:ptr], "Vector3d", value)
 
-model_save_to_file_with_version(
+puts "saving model.skp"
+p model_save_to_file_with_version(
    model[:ptr],
    "model.skp",
    SUModelVersion[:SUModelVersion_SU2017]
