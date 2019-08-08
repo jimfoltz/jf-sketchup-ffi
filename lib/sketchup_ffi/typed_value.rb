@@ -19,7 +19,9 @@ module SketchupFFI
   attach_function(:SUTypedValueGetDouble, [SUTypedValueRef, :double_ptr], SUResult)
   attach_function(:SUTypedValueSetInt16, [SUTypedValueRef, :int16], SUResult)
   attach_function(:SUTypedValueGetInt16, [SUTypedValueRef, :int16_ptr], SUResult)
+
   attach_function(:SUTypedValueSetInt32, [SUTypedValueRef, :int32], SUResult)
+
   attach_function(:SUTypedValueGetInt32, [SUTypedValueRef, :pointer], SUResult)
   attach_function(:SUTypedValueSetString, [SUTypedValueRef, :string], SUResult)
   attach_function(:SUTypedValueGetString, [SUTypedValueRef, SUStringRef], SUResult)
@@ -32,7 +34,10 @@ module SketchupFFI
   attach_function(:SUTypedValueSetTime, [SUTypedValueRef, :int64], SUResult)
   attach_function(:SUTypedValueGetTime, [SUTypedValueRef, :int64_ptr], SUResult)
   attach_function(:SUTypedValueSetUnitVector3d, [SUTypedValueRef, :double_ptr], SUResult)
+  
+  # SU_RESULT 	SUTypedValueSetArrayItems (SUTypedValueRef typed_value, size_t len, SUTypedValueRef values[])
   attach_function(:SUTypedValueSetArrayItems, [SUTypedValueRef, :size_t, SUTypedValueRef], SUResult)
+
   attach_function(:SUTypedValueGetNumArrayItems, [SUTypedValueRef, :size_ptr], SUResult)
   attach_function(:SUTypedValueGetArrayItems, [SUTypedValueRef, :size_t, SUTypedValueRef, :size_ptr], SUResult)
 
