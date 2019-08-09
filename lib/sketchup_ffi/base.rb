@@ -1,8 +1,7 @@
-require 'ffi'
+require "ffi"
 require_relative "snake_case"
 
 module SketchupFFI
-
   extend FFI::Library
 
   # if windows
@@ -14,8 +13,6 @@ module SketchupFFI
   #end
 
   SUError = Class.new(StandardError)
-  ATTACHED_FUNCTIONS = []
-  UNATTACHED_FUNCTIONS = []
 
   # https://github.com/Burgestrand/plaything/blob/2893c02b2d0750721152af0ca393af5df6c852ed/lib/plaything/openal.rb#L29
   #
@@ -23,14 +20,12 @@ module SketchupFFI
   # 2 Create a bang_name without error checking
 
   def self.attach_function(c_name, params, returns, options = {})
-    ruby_name = snakecase(c_name).gsub(/3_d/, '3d').gsub(/2_d/, '2d')
+    ruby_name = snakecase(c_name).gsub(/3_d/, "3d").gsub(/2_d/, "2d")
     begin
       super(ruby_name, c_name, params, returns, options)
-      ATTACHED_FUNCTIONS << [c_name, ruby_name]
     rescue FFI::NotFoundError
       warn "FFI::NotFoundError: #{c_name} (#{ruby_name})."
       define_method(ruby_name) { |*args, &block| raise NotImplementedError }
-      UNATTACHED_FUNCTIONS << ruby_name
       #module_function ruby_name
       return
     end
@@ -74,13 +69,6 @@ module SketchupFFI
     :SU_ERROR_INVALID_OPERATION
   )
 
-
-  #class SURef < FFI::Struct
-  #  def valid?
-  #    self[:ptr].address != 0
-  #  end
-  #end
-
   typedef :pointer, :bool_ptr
   typedef :pointer, :int_ptr
   typedef :pointer, :float_ptr
@@ -94,7 +82,8 @@ module SketchupFFI
   typedef :uchar, :subyte
 
   class Time_tm < FFI::Struct
-    layout :tm_sec, :int,
+    layout(
+      :tm_sec, :int,
       :tm_min, :int,
       :tm_hour, :int,
       :tm_mday, :int,
@@ -103,8 +92,8 @@ module SketchupFFI
       :tm_wday, :int,
       :tm_yday, :int,
       :tm_isdst, :int
+    )
   end
-
 
   # @return [String]
   def self.api_version
@@ -138,6 +127,4 @@ module SketchupFFI
   def self.set_invalid(ref)
     ref[:ptr] = 0
   end
-
 end # module SketchupFFI
-

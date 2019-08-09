@@ -1,11 +1,16 @@
 # defs.rb
 
 module SketchupFFI
+  class SURef < FFI::Struct
+    def valid?
+      self[:ptr].address != 0
+    end
+  end
 
   def self.define_ref(sym)
     ref_name = "SU#{sym}Ref"
-    #const_set(ref_name, Class.new(SURef))
-    const_set(ref_name, Class.new(FFI::Struct))
+    const_set(ref_name, Class.new(SURef))
+    #const_set(ref_name, Class.new(FFI::Struct))
     const_get(ref_name).send :layout, :ptr, :pointer
   end
 
@@ -71,8 +76,7 @@ module SketchupFFI
   define_ref(:String)
   define_ref(:LengthFormatter)
 
-
-  SURefType = enum [
+  SURefType = enum(
     :Unknown,
     :AttributeDictionary,
     :Camera,
@@ -126,6 +130,5 @@ module SketchupFFI
     :LengthFormatter,
     :LineStyle,
     :LineStyleManager
-  ]
-
+  )
 end

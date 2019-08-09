@@ -81,9 +81,9 @@ require_relative "sketchup_ffi/vector3d.rb"
 require_relative "sketchup_ffi/vertex.rb"
 
 if $0 == __FILE__
-  SketchupFFI::ATTACHED_FUNCTIONS.each {|a, b|
-    puts "#{a},#{b}"
-  }
+  #SketchupFFI::ATTACHED_FUNCTIONS.each {|a, b|
+  #  puts "#{a},#{b}"
+  #}
 
   #SketchupFFI::H.each { |k, values|
   #  puts "\n\n## #{k}\n\n```"
@@ -93,4 +93,3 @@ if $0 == __FILE__
   #puts "API Version #{SketchupFFI.api_version}"
 
 end
-
