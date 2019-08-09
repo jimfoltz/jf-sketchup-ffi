@@ -2,6 +2,8 @@ require_relative '../lib/sketchup_ffi'
 
 include SketchupFFI
 
+SketchupFFI.initialize
+
 
 model = SUModelRef.new
 model_create(model)
@@ -91,6 +93,8 @@ ptr.put_array_of_pointer(0, items)
 typed_value_set_array_items(value, items.size, ptr)
 attribute_dictionary_set_value(dict[:ptr], "Array<mixed>", value)
 
+#typed_value_release item1
+
 
 puts "saving model.skp"
 p model_save_to_file_with_version(
@@ -98,3 +102,5 @@ p model_save_to_file_with_version(
    "model.skp",
    SUModelVersion[:SUModelVersion_SU2017]
 )
+
+terminate
