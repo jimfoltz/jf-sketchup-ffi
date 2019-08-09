@@ -1,6 +1,5 @@
 # model.rb
 module SketchupFFI
-
   SUModelVersion = enum(
     :SUModelVersion_SU3,
     :SUModelVersion_SU4,
@@ -80,7 +79,7 @@ module SketchupFFI
   attach_function(:SUModelGetShadowInfo, [SUModelRef, SUShadowInfoRef], SUResult)
 
   attach_function(:SUModelGetOptionsManager, [SUModelRef, SUOptionsManagerRef], SUResult)
-  
+
   attach_function(:SUModelGetNorthCorrection, [SUModelRef, :double_ptr], SUResult)
 
   attach_function(:SUModelMergeCoplanarFaces, [SUModelRef], SUResult)
@@ -119,5 +118,4 @@ module SketchupFFI
   attach_function(:SUModelGetNumAllMaterials, [SUModelRef, :size_ptr], SUResult)
   attach_function(:SUModelGetAllMaterials, [SUModelRef, :size_t, SUMaterialRef, :size_ptr], SUResult)
   attach_function(:SUModelGetGuid, [SUModelRef, SUStringRef], SUResult)
-
 end

@@ -1,5 +1,4 @@
 module SketchupFFI
-
   SUTextLeaderType = enum(
     :None,
     :ViewBased,
@@ -28,5 +27,4 @@ module SketchupFFI
   attach_function(:SUTextGetColor, [SUTextRef, SUColor], SUResult)
   attach_function(:SUTextSetScreenPosition, [SUTextRef, :double, :double], SUResult)
   attach_function(:SUTextGetScreenPosition, [SUTextRef, :double_ptr, :double_ptr], SUResult)
-
 end

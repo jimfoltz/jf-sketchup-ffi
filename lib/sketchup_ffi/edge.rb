@@ -1,6 +1,5 @@
 # edge.rb
 module SketchupFFI
-
   attach_function(:SUEdgeToEntity, [SUEdgeRef], SUEntityRef)
   attach_function(:SUEdgeFromEntity, [SUEntityRef], SUEdgeRef)
   attach_function(:SUEdgeToDrawingElement, [SUEdgeRef], SUDrawingElementRef)
@@ -19,5 +18,4 @@ module SketchupFFI
   attach_function(:SUEdgeGetColor, [SUEdgeRef, SUColor], SUResult)
   attach_function(:SUEdgeSetColor, [SUEdgeRef, SUColor], SUResult)
   attach_function(:SUEdgeGetLengthWithTransform, [SUEdgeRef, SUTransformation, :double_ptr], SUResult)
-
 end

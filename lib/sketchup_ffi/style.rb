@@ -1,12 +1,11 @@
 module SketchupFFI
-
   SUStylePropertyType = enum(
     :SUStyleEdgesColor,
     :SUStyleEdgesExtensionsEnabled,
     :SUStyleEdgesExtensionLength,
     :SUStyleEdgesProfilesEnabled,
     :SUStyleEdgesProfileWidth,
-    :SUStyleEdgesDepthCueEnabled ,
+    :SUStyleEdgesDepthCueEnabled,
     :SUStyleEdgesDepthCueLevels,
     :SUStyleBackgroundColor
   )
@@ -28,5 +27,4 @@ module SketchupFFI
   attach_function(:SUStyleSetProperty, [SUStyleRef, SUStylePropertyType, SUTypedValueRef], SUResult)
   attach_function(:SUStyleGetProperty, [SUStyleRef, SUStylePropertyType, SUTypedValueRef], SUResult)
   attach_function(:SUStyleGetThumbnail, [SUStyleRef, SUImageRepRef], SUResult)
-
 end

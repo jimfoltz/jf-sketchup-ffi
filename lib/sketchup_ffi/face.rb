@@ -1,6 +1,5 @@
 # face.rb
 module SketchupFFI
-
   attach_function(:SUFaceToEntity, [SUFaceRef], SUEntityRef)
   attach_function(:SUFaceFromEntity, [SUEntityRef], SUFaceRef)
   attach_function(:SUFaceToDrawingElement, [SUFaceRef], SUDrawingElementRef)
@@ -36,6 +35,4 @@ module SketchupFFI
   attach_function(:SUFaceGetNumAttachedDrawingElements, [SUFaceRef, :size_ptr], SUResult)
   attach_function(:SUFaceGetAttachedDrawingElements, [SUFaceRef, :size_t, SUDrawingElementRef, :size_ptr], SUResult)
   attach_function(:SUFaceReverse, [SUFaceRef], SUResult)
-
-
 end

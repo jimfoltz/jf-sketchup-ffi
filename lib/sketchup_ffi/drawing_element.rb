@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUDrawingElementToEntity, [SUDrawingElementRef], SUEntityRef)
   attach_function(:SUDrawingElementFromEntity, [SUEntityRef], SUDrawingElementRef)
   attach_function(:SUDrawingElementGetType, [SUDrawingElementRef], SURefType)
@@ -14,5 +13,4 @@ module SketchupFFI
   attach_function(:SUDrawingElementSetCastsShadows, [SUDrawingElementRef, :bool], SUResult)
   attach_function(:SUDrawingElementGetReceivesShadows, [SUDrawingElementRef, :bool_ptr], SUResult)
   attach_function(:SUDrawingElementSetReceivesShadows, [SUDrawingElementRef, :bool], SUResult)
-
 end

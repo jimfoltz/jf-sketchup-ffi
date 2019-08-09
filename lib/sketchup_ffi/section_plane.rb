@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUSectionPlaneToEntity, [SUSectionPlaneRef], SUEntityRef)
   attach_function(:SUSectionPlaneFromEntity, [SUEntityRef], SUSectionPlaneRef)
   attach_function(:SUSectionPlaneToDrawingElement, [SUSectionPlaneRef], SUDrawingElementRef)
@@ -13,5 +12,4 @@ module SketchupFFI
   attach_function(:SUSectionPlaneSetName, [SUSectionPlaneRef, :string], SUResult)
   attach_function(:SUSectionPlaneGetSymbol, [SUSectionPlaneRef, SUStringRef], SUResult)
   attach_function(:SUSectionPlaneSetSymbol, [SUSectionPlaneRef, :string], SUResult)
-
 end

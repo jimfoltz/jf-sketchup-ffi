@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUComponentInstanceToEntity, [SUComponentInstanceRef], SUEntityRef)
   attach_function(:SUComponentInstanceFromEntity, [SUEntityRef], SUComponentInstanceRef)
   attach_function(:SUComponentInstanceToDrawingElement, [SUComponentInstanceRef], SUDrawingElementRef)
@@ -22,5 +21,4 @@ module SketchupFFI
   attach_function(:SUComponentInstanceGetAttachedInstances, [SUComponentInstanceRef, :size_t, SUComponentInstanceRef, :size_ptr], SUResult)
   attach_function(:SUComponentInstanceGetNumAttachedToDrawingElements, [SUComponentInstanceRef, :size_ptr], SUResult)
   attach_function(:SUComponentInstanceGetAttachedToDrawingElements, [SUComponentInstanceRef, :size_t, SUDrawingElementRef, :size_ptr], SUResult)
-
 end

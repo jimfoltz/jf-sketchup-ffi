@@ -1,7 +1,6 @@
 require_relative "geometry"
 
 module SketchupFFI
-
   attach_function(:SUTransformationSetFromPointAndNormal, [SUTransformation, SUPoint3d, SUVector3d], SUResult)
   attach_function(:SUTransformationSetFromPointAndAxes, [SUTransformation, SUPoint3d, SUVector3d, SUVector3d, SUVector3d], SUResult)
   attach_function(:SUTransformationTranslation, [SUTransformation, SUVector3d], SUResult)
@@ -20,5 +19,4 @@ module SketchupFFI
   attach_function(:SUTransformationGetZRotation, [SUTransformation, :double], SUResult)
   attach_function(:SUTransformationMultiply, [SUTransformation, SUTransformation, SUTransformation], SUResult)
   attach_function(:SUTransformationIsMirrored, [SUTransformation, :bool_ptr], SUResult)
-
 end

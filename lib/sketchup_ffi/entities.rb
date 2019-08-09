@@ -1,6 +1,5 @@
 # entities.rb
 module SketchupFFI
-
   attach_function(:SUEntitiesClear, [SUEntitiesRef], SUResult)
   attach_function(:SUEntitiesFill, [SUEntitiesRef, SUGeometryInputRef, :bool], SUResult)
   attach_function(:SUEntitiesGetBoundingBox, [SUEntitiesRef, SUBoundingBox3d], SUResult)
@@ -51,5 +50,4 @@ module SketchupFFI
   attach_function(:SUEntitiesIsRecursivelyEmpty, [SUEntitiesRef, :bool_ptr], SUResult)
   attach_function(:SUEntitiesHasSectionCuts, [SUEntitiesRef, :bool_ptr], SUResult)
   attach_function(:SUEntitiesEntityListFill, [SUEntitiesRef, SURefType, SUEntityListRef], SUResult)
-
 end

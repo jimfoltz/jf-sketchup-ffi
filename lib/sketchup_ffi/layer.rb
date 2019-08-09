@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SULayerToEntity, [SULayerRef], SUEntityRef)
   attach_function(:SULayerFromEntity, [SUEntityRef], SULayerRef)
   attach_function(:SULayerCreate, [SULayerRef], SUResult)
@@ -12,5 +11,4 @@ module SketchupFFI
   attach_function(:SULayerGetLineStyle, [SULayerRef, SULineStyleRef], SUResult)
   attach_function(:SULayerSetLineStyle, [SULayerRef, SULineStyleRef], SUResult)
   attach_function(:SULayerClearLineStyle, [SULayerRef], SUResult)
-
 end

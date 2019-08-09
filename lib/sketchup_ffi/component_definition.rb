@@ -1,7 +1,16 @@
 module SketchupFFI
+  SUSnapBehavior = enum(
+    :none, :any, :horizontal, :vertical, :sloped
+  )
 
   class SUComponentBehavior < FFI::Struct
-    # TODO
+    layout(
+      :component_snap, SUSnapBehavior,
+      :component_cuts_opening, :bool,
+      :component_always_face_camera, :bool,
+      :component_always_face_sun, :bool,
+      :component_no_scale_mask, :size_t
+    )
   end
 
   SUComponentType = enum(
@@ -39,5 +48,4 @@ module SketchupFFI
   attach_function(:SUComponentDefinitionOrientFacesConsistently, [SUComponentDefinitionRef], SUResult)
   attach_function(:SUComponentDefinitionSetInsertPoint, [SUComponentDefinitionRef, SUPoint3d], SUResult)
   attach_function(:SUComponentDefinitionSetAxes, [SUComponentDefinitionRef, SUAxesRef], SUResult)
-
 end

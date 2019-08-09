@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUMeshHelperCreate, [SUMeshHelperRef, SUFaceRef], SUResult)
   attach_function(:SUMeshHelperCreateWithTextureWriter, [SUMeshHelperRef, SUFaceRef, SUTextureWriterRef], SUResult)
   attach_function(:SUMeshHelperCreateWithUVHelper, [SUMeshHelperRef, SUFaceRef, SUUVHelperRef], SUResult)
@@ -11,5 +10,4 @@ module SketchupFFI
   attach_function(:SUMeshHelperGetFrontSTQCoords, [SUMeshHelperRef, :size_t, SUPoint3d, :size_ptr], SUResult)
   attach_function(:SUMeshHelperGetBackSTQCoords, [SUMeshHelperRef, :size_t, SUPoint3d, :size_ptr], SUResult)
   attach_function(:SUMeshHelperGetNormals, [SUMeshHelperRef, :size_t, SUVector3d, :size_ptr], SUResult)
-
 end

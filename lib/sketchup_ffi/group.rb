@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUGroupToEntity, [SUGroupRef], SUEntityRef)
   attach_function(:SUGroupFromEntity, [SUEntityRef], SUGroupRef)
   attach_function(:SUGroupToDrawingElement, [SUGroupRef], SUDrawingElementRef)
@@ -15,5 +14,4 @@ module SketchupFFI
   attach_function(:SUGroupGetTransform, [SUGroupRef, SUTransformation], SUResult)
   attach_function(:SUGroupGetEntities, [SUGroupRef, SUEntitiesRef], SUResult)
   attach_function(:SUGroupGetDefinition, [SUGroupRef, SUComponentDefinitionRef], SUResult)
-
 end

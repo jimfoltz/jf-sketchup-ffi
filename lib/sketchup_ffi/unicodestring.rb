@@ -1,6 +1,5 @@
 
 module SketchupFFI
-
   attach_function(:SUStringCreate, [SUStringRef], SUResult)
   attach_function(:SUStringGetUTF8, [SUStringRef, :size_t, :pointer, :size_ptr], SUResult)
   attach_function(:SUStringGetUTF8Length, [SUStringRef, :pointer], SUResult)
@@ -14,6 +13,4 @@ module SketchupFFI
   attach_function(:SUStringTrimLeft, [SUStringRef], SUResult)
   attach_function(:SUStringTrimRight, [SUStringRef], SUResult)
   attach_function(:SUStringCompare, [SUStringRef, SUStringRef, :int_ptr], SUResult)
-
-
 end

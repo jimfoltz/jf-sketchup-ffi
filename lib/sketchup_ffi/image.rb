@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUImageToEntity, [SUImageRef], SUEntityRef)
   attach_function(:SUImageFromEntity, [SUEntityRef], SUImageRef)
   attach_function(:SUImageToDrawingElement, [SUImageRef], SUDrawingElementRef)
@@ -16,5 +15,4 @@ module SketchupFFI
   attach_function(:SUImageGetPixelDimensions, [SUImageRef, :size_ptr, :size_ptr], SUResult)
   attach_function(:SUImageGetDataSize, [SUImageRef, :size_ptr, :size_ptr], SUResult)
   attach_function(:SUImageGetData, [SUImageRef, :size_t, :subyte], SUResult)
-
 end

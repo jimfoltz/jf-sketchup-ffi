@@ -1,8 +1,7 @@
 # common.rb
 #
 module SketchupFFI
-
-  SUResult = enum [
+  SUResult = enum(
     :SU_ERROR_NONE,
     :SU_ERROR_NULL_POINTER_INPUT,
     :SU_ERROR_INVALID_INPUT,
@@ -24,6 +23,5 @@ module SketchupFFI
     :SU_ERROR_INVALID_ARGUMENT,
     :SU_ERROR_ENTITY_LOCKED,
     :SU_ERROR_INVALID_OPERATION
-  ]
-
+  )
 end

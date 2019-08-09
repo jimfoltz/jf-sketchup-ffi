@@ -3,7 +3,6 @@
 require_relative "geometry"
 
 module SketchupFFI
-
   attach_function(:SUArcCurveCreate, [SUArcCurveRef, SUPoint3d, SUPoint3d, SUPoint3d, SUVector3d, :size_t], SUResult)
   attach_function(:SUArcCurveRelease, [SUArcCurveRef], SUResult)
   attach_function(:SUArcCurveFromEntity, [SUEntitiesRef], SUArcCurveRef)
@@ -20,5 +19,4 @@ module SketchupFFI
   attach_function(:SUArcCurveGetStartPoint, [SUArcCurveRef, SUPoint3d], SUResult)
   attach_function(:SUArcCurveGetXAxis, [SUArcCurveRef, SUVector3d], SUResult)
   attach_function(:SUArcCurveGetYAxis, [SUArcCurveRef, SUVector3d], SUResult)
-
 end

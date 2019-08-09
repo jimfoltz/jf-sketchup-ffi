@@ -1,6 +1,5 @@
 
 module SketchupFFI
-
   attach_function(:SULoopInputCreate, [SULoopInputRef], SUResult)
   attach_function(:SULoopInputRelease, [SULoopInputRef], SUResult)
   attach_function(:SULoopInputAddVertexIndex, [SULoopInputRef, :size_t], SUResult)
@@ -11,5 +10,4 @@ module SketchupFFI
   attach_function(:SULoopInputEdgeSetLayer, [SULoopInputRef, :size_t, SULayerRef], SUResult)
   attach_function(:SULoopInputAddCurve, [SULoopInputRef, :size_t, :size_t], SUResult)
   attach_function(:SULoopInputIsClosed, [SULoopInputRef, :bool_ptr], SUResult)
-
 end

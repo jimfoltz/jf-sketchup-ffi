@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUAxesToEntity, [SUAxesRef], SUEntityRef)
   attach_function(:SUAxesFromEntity, [SUEntityRef], SUAxesRef)
   attach_function(:SUAxesToDrawingElement, [SUAxesRef], SUDrawingElementRef)
@@ -15,5 +14,4 @@ module SketchupFFI
   attach_function(:SUAxesSetAxesVecs, [SUAxesRef, SUVector3d, SUVector3d, SUVector3d], SUResult)
   attach_function(:SUAxesGetTransform, [SUAxesRef, SUTransformation], SUResult)
   attach_function(:SUAxesGetPlane, [SUAxesRef, SUPlane3d], SUResult)
-
 end

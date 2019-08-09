@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUTextureWriterCreate, [SUTextureWriterRef], SUResult)
   attach_function(:SUTextureWriterRelease, [SUTextureWriterRef], SUResult)
   attach_function(:SUTextureWriterLoadEntity, [SUTextureWriterRef, SUEntityRef, :long_ptr], SUResult)
@@ -14,5 +13,4 @@ module SketchupFFI
   attach_function(:SUTextureWriterGetBackFaceUVCoords, [SUTextureWriterRef, SUFaceRef, :size_t, SUPoint3d, SUPoint2d], SUResult)
   attach_function(:SUTextureWriterGetTextureIdForEntity, [SUTextureWriterRef, SUEntityRef, :long_ptr], SUResult)
   attach_function(:SUTextureWriterGetTextureIdForFace, [SUTextureWriterRef, SUFaceRef, :bool, :long_ptr], SUResult)
-
 end

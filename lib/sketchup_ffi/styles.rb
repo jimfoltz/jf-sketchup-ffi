@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUStylesAddStyle, [SUStylesRef, :string, :bool], SUResult)
   attach_function(:SUStylesGetNumStyles, [SUStylesRef, :size_ptr], SUResult)
   attach_function(:SUStylesGetStyles, [SUStylesRef, :size_t, SUStyleRef, :size_ptr], SUResult)
@@ -11,5 +10,4 @@ module SketchupFFI
   attach_function(:SUStylesApplyStyleToScene, [SUStylesRef, SUStyleRef, SUSceneRef], SUResult)
   attach_function(:SUStylesSetSelectedStyle, [SUStylesRef, SUStyleRef], SUResult)
   attach_function(:SUStylesRemoveStyle, [SUStylesRef, SUStyleRef], SUResult)
-
 end

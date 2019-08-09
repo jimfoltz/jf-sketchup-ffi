@@ -1,6 +1,5 @@
 
 module SketchupFFI
-
   attach_function(:SUEdgeUseToEntity, [SUEdgeUseRef], SUEntityRef)
   attach_function(:SUEdgeUseFromEntity, [SUEntityRef], SUEdgeUseRef)
   attach_function(:SUEdgeUseGetEdge, [SUEdgeUseRef, SUEdgeRef], SUResult)
@@ -15,5 +14,4 @@ module SketchupFFI
   attach_function(:SUEdgeUseGetEndVertex, [SUEdgeUseRef, SUVertexRef], SUResult)
   attach_function(:SUEdgeUseGetStartVertexNormal, [SUEdgeUseRef, SUVector3d], SUResult)
   attach_function(:SUEdgeUseGetEndVertexNormal, [SUEdgeUseRef, SUVector3d], SUResult)
-
 end

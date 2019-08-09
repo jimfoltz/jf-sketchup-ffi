@@ -1,10 +1,11 @@
 module SketchupFFI
-
   class SUMaterialInput < FFI::Struct
-    layout :num_uv_coords, :size_t,
+    layout(
+      :num_uv_coords, :size_t,
       :uv_coords, SUPoint2d,
       :vertex_indices, :size_t,
       :material, SUMaterialRef
+    )
   end
 
   attach_function(:SUGeometryInputCreate, [SUGeometryInputRef], SUResult)
@@ -27,5 +28,4 @@ module SketchupFFI
   attach_function(:SUGeometryInputFaceSetBackMaterial, [SUGeometryInputRef, :size_t, SUMaterialInput], SUResult)
   attach_function(:SUGeometryInputFaceSetHidden, [SUGeometryInputRef, :size_t, :bool], SUResult)
   attach_function(:SUGeometryInputGetCounts, [SUGeometryInputRef, :size_ptr, :size_ptr, :size_ptr, :size_ptr, :size_ptr], SUResult)
-
 end

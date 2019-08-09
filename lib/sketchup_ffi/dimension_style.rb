@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUDimensionStyleGetFont, [SUDimensionStyleRef, SUFontRef], SUResult)
   attach_function(:SUDimensionStyleGet3D, [SUDimensionStyleRef, :bool_ptr], SUResult)
   attach_function(:SUDimensionStyleGetArrowType, [SUDimensionStyleRef, SUArrowType], SUResult)
@@ -16,5 +15,4 @@ module SketchupFFI
   attach_function(:SUDimensionStyleGetHideOutOfPlaneValue, [SUDimensionStyleRef, :double_ptr], SUResult)
   attach_function(:SUDimensionStyleGetHideSmall, [SUDimensionStyleRef, :bool_ptr], SUResult)
   attach_function(:SUDimensionStyleGetHideSmallValue, [SUDimensionStyleRef, :double_ptr], SUResult)
-
 end

@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUTextureToEntity, [SUTextureRef], SUEntityRef)
   attach_function(:SUTextureFromEntity, [SUEntityRef], SUTextureRef)
   attach_function(:SUTextureCreateFromImageData, [SUTextureRef, :size_t, :size_t, :size_t, :subyte], SUResult)
@@ -17,5 +16,4 @@ module SketchupFFI
   attach_function(:SUTextureGetAverageColor, [SUTextureRef, SUColor], SUResult)
   attach_function(:SUTextureGetColorizedImageRep, [SUTextureRef, SUImageRepRef], SUResult)
   attach_function(:SUTextureWriteOriginalToFile, [SUTextureRef, :string], SUResult)
-
 end

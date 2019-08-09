@@ -1,6 +1,5 @@
 module SketchupFFI
-
-  SUMaterialType= enum(
+  SUMaterialType = enum(
     :Colored,
     :Textured,
     :ColorizedTexture
@@ -34,5 +33,4 @@ module SketchupFFI
   attach_function(:SUMaterialSetColorizeType, [SUMaterialRef, SUMaterialColorizeType], SUResult)
   attach_function(:SUMaterialGetColorizeType, [SUMaterialRef, SUMaterialColorizeType], SUResult)
   attach_function(:SUMaterialGetColorizeDeltas, [SUMaterialRef, :double_ptr, :double_ptr, :double_ptr], SUResult)
-
 end

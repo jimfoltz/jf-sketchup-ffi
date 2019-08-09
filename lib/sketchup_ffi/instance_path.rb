@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUInstancePathCreate, [SUInstancePathRef], SUResult)
   attach_function(:SUInstancePathCreateCopy, [SUInstancePathRef, SUInstancePathRef], SUResult)
   attach_function(:SUInstancePathRelease, [SUInstancePathRef], SUResult)
@@ -18,5 +17,4 @@ module SketchupFFI
   attach_function(:SUInstancePathContains, [SUInstancePathRef, SUEntityRef, :bool_ptr], SUResult)
   attach_function(:SUInstancePathGetPersistentID, [SUInstancePathRef, SUStringRef], SUResult)
   attach_function(:SUInstancePathGetPersistentIDAtDepth, [SUInstancePathRef, :size_t, SUStringRef], SUResult)
-
 end

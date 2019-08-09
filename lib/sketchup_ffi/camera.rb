@@ -1,5 +1,4 @@
 module SketchupFFI
-
   attach_function(:SUCameraCreate, [SUCameraRef], SUResult)
   attach_function(:SUCameraRelease, [SUCameraRef], SUResult)
   attach_function(:SUCameraGetOrientation, [SUCameraRef, SUPoint3d, SUPoint3d, SUVector3d], SUResult)
@@ -27,5 +26,4 @@ module SketchupFFI
   attach_function(:SUCameraGetScale2D, [SUCameraRef, :double_ptr], SUResult)
   attach_function(:SUCameraSetCenter2D, [SUCameraRef, SUPoint3d], SUResult)
   attach_function(:SUCameraGetCenter2D, [SUCameraRef, SUPoint3d], SUResult)
-
 end
