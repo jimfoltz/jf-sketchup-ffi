@@ -1,10 +1,14 @@
 require "ffi"
 
-#require_relative "sketchup_ffi/common.rb"
+module SketchupFFI
+  extend FFI::Library
+end
+
+require_relative "sketchup_ffi/common.rb"
 require_relative "sketchup_ffi/base.rb"
 require_relative "sketchup_ffi/defs.rb"
-require_relative "sketchup_ffi/initialize.rb"
 
+require_relative "sketchup_ffi/initialize.rb"
 require_relative "sketchup_ffi/application.rb"
 require_relative "sketchup_ffi/arc_curve.rb"
 require_relative "sketchup_ffi/arrow_type.rb"
@@ -80,16 +84,3 @@ require_relative "sketchup_ffi/vector2d.rb"
 require_relative "sketchup_ffi/vector3d.rb"
 require_relative "sketchup_ffi/vertex.rb"
 
-if $0 == __FILE__
-  #SketchupFFI::ATTACHED_FUNCTIONS.each {|a, b|
-  #  puts "#{a},#{b}"
-  #}
-
-  #SketchupFFI::H.each { |k, values|
-  #  puts "\n\n## #{k}\n\n```"
-  #  values.each {|f| puts "  #{f}"}
-  #  puts "\n```\n"
-  #}
-  #puts "API Version #{SketchupFFI.api_version}"
-
-end

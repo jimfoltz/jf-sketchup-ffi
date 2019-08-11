@@ -5,7 +5,7 @@ module SketchupFFI
   attach_function(:SUFaceToDrawingElement, [SUFaceRef], SUDrawingElementRef)
   attach_function(:SUFaceFromDrawingElement, [SUDrawingElementRef], SUFaceRef)
   attach_function(:SUFaceCreate, [SUFaceRef, SUPoint3d, SULoopInputRef], SUResult)
-  attach_function(:SUFaceCreateSimple, [SUFaceRef, :pointer, :size_t], SUResult)
+  attach_function(:SUFaceCreateSimple, [SUFaceRef, SUPoint3d, :size_t], SUResult)
   attach_function(:SUFaceRelease, [SUFaceRef], SUResult)
   attach_function(:SUFaceGetNormal, [SUFaceRef, SUVector3d], SUResult)
   attach_function(:SUFaceGetNumEdges, [SUFaceRef, :size_ptr], SUResult)

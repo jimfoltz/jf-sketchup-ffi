@@ -39,7 +39,7 @@ model_get_entities(model[:ptr], entities)
 entities_add_faces(entities[:ptr], 1, face)
 
 puts "saving model.skp"
-model_save_to_file_with_version(
+p model_save_to_file_with_version(
   model[:ptr],
   "model.skp",
   SUModelVersion[:SUModelVersion_SU2017]

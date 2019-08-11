@@ -37,42 +37,57 @@ keys.each {|key|
    type_no = type.read_int
    puts "\ntype: #{SUTypedValueType[type_no]}"
    case type.read_int
-   when SUTypedValueType[:SUTypedValueType_Empty]
+   when SUTypedValueType[:Empty]
    val = "<empty>"
-   when SUTypedValueType[:SUTypedValueType_Byte]
+   when SUTypedValueType[:Byte]
       ptr = FFI::MemoryPointer.new :char
       typed_value_get_byte value[:ptr], ptr
       val = ptr.read(:char)
-   when SUTypedValueType[:SUTypedValueType_Double]
-      d = FFI::MemoryPointer.new :double
-      typed_value_get_double value[:ptr], d
-      val = d.read(:double)
-   when SUTypedValueType[:SUTypedValueType_String]
-      s = SUStringRef.new
-      string_create s
-      typed_value_get_string value[:ptr], s
-      val = SketchupFFI.get_string s
-      string_release s
-   when SUTypedValueType[:SUTypedValueType_Int16]
-      ptr = FFI::MemoryPointer.new :int16
-      typed_value_get_int16 value[:ptr], ptr
-      val = ptr.read(:int16)
-   when SUTypedValueType[:SUTypedValueType_Int32]
-      ptr = FFI::MemoryPointer.new :int32
-      typed_value_get_int32 value[:ptr], ptr
-      val = ptr.read(:int32)
-   when SUTypedValueType[:SUTypedValueType_Bool]
-      ptr = FFI::MemoryPointer.new :bool
-      typed_value_get_bool value[:ptr], ptr
-      val = ptr.read(:bool)
-   when SUTypedValueType[:SUTypedValueType_Color]
-      ptr = FFI::MemoryPointer.new SUColor
-      typed_value_get_color value[:ptr], ptr
-      val = SUColor.new ptr
-   when SUTypedValueType[:SUTypedValueType_Vector3d]
-      ptr = FFI::MemoryPointer.new SUVector3d
-      typed_value_get_color value[:ptr], ptr
-      val = SUVector3d.new ptr
+      # Not Defined in SDK
+      when SUTypedValueType[:Short]
+         ptr = FFI::MemoryPointer.new :short
+         typed_value_get_short value[:ptr], ptr
+         val = ptr.read(:short)
+   when SUTypedValueType[:Float]
+     d = FFI::MemoryPointer.new :float
+     typed_value_get_float value[:ptr], d
+     val = d.read(:float)
+   when SUTypedValueType[:Double]
+     d = FFI::MemoryPointer.new :double
+     typed_value_get_double value[:ptr], d
+     val = d.read(:double)
+   when SUTypedValueType[:String]
+     s = SUStringRef.new
+     string_create s
+     typed_value_get_string value[:ptr], s
+     val = SketchupFFI.get_string s
+     string_release s
+   when SUTypedValueType[:Int16]
+     ptr = FFI::MemoryPointer.new :int16
+     typed_value_get_int16 value[:ptr], ptr
+     val = ptr.read(:int16)
+   when SUTypedValueType[:Int32]
+     ptr = FFI::MemoryPointer.new :int32
+     typed_value_get_int32 value[:ptr], ptr
+     val = ptr.read(:int32)
+   when SUTypedValueType[:Bool]
+     ptr = FFI::MemoryPointer.new :bool
+     typed_value_get_bool value[:ptr], ptr
+     val = ptr.read(:bool)
+   when SUTypedValueType[:Color]
+     ptr = FFI::MemoryPointer.new SUColor
+     typed_value_get_color value[:ptr], ptr
+     val = SUColor.new ptr
+   when SUTypedValueType[:Vector3d]
+     ptr = FFI::MemoryPointer.new SUVector3d
+     typed_value_get_vector3d value[:ptr], ptr
+     val = SUVector3d.new ptr
+   when SUTypedValueType[:Array]
+     int_p = FFI::MemoryPointer.new :size_t
+     typed_value_get_num_array_items(value[:ptr], int_p)
+     n = int_p.read(:size_t)
+     puts "Array[#{n}]"
+   else val = "N/A"
    end
    puts "#{key.inspect} = #{val.inspect}"
 }

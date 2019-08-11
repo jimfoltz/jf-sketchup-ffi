@@ -66,7 +66,7 @@ module SketchupFFI
   attach_function(:SUModelGetVersion, [SUModelRef, :int_ptr, :int_ptr, :int_ptr], SUResult)
 
   attach_function(:SUModelGetNumAttributeDictionaries, [SUModelRef, :int_ptr], SUResult)
-  attach_function(:SUModelGetAttributeDictionaries, [SUModelRef, :size_t, :pointer, :pointer], SUResult)
+  attach_function(:SUModelGetAttributeDictionaries, [SUModelRef, :size_t, SUAttributeDictionaryRef, :size_ptr], SUResult)
   attach_function(:SUModelGetAttributeDictionary, [SUModelRef, :string, SUAttributeDictionaryRef], SUResult)
 
   attach_function(:SUModelIsGeoReferenced, [SUModelRef, :bool_ptr], SUResult)
@@ -101,7 +101,7 @@ module SketchupFFI
   attach_function(:SUModelSetDescription, [SUModelRef, :string], SUResult)
   attach_function(:SUModelGetUnits, [SUModelRef, SUModelUnits], SUResult)
   attach_function(:SUModelGetClassifications, [SUModelRef, SUClassificationsRef], SUResult)
-  attach_function(:SUModelGetAxes, [SUModelRef, :pointer], SUResult)
+  attach_function(:SUModelGetAxes, [SUModelRef, SUAxesRef], SUResult)
   attach_function(:SUModelGetStyles, [SUModelRef, SUStylesRef], SUResult)
   attach_function(:SUModelGetInstancePathByPid, [SUModelRef, SUStringRef, SUInstancePathRef], SUResult)
   attach_function(:SUModelGetNumFonts, [SUModelRef, :size_ptr], SUResult)
