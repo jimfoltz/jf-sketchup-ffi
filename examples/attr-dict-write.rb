@@ -1,4 +1,6 @@
 require_relative '../lib/sketchup_ffi'
+require_relative "attr_dict_helpers"
+require_relative "typed_value_helpers"
 
 include SketchupFFI
 
@@ -14,31 +16,31 @@ value = SUTypedValueRef.new
 typed_value_create(value)
 SketchupFFI.set_invalid(value)
 
-SketchupFFI.attr_dict_set_value(dict, "Boolean True", true)
-SketchupFFI.attr_dict_set_value(dict, "Boolean False", false)
-SketchupFFI.attr_dict_set_value(dict, "String", "String Value®")
-SketchupFFI.attr_dict_set_value(dict, "Zero", 0)
-SketchupFFI.attr_dict_set_value(dict, "127", 127)
-SketchupFFI.attr_dict_set_value(dict, "126", 126)
-SketchupFFI.attr_dict_set_value(dict, "-2**31", -2**31)
-SketchupFFI.attr_dict_set_value(dict, "2**31 - 1", 2**31 - 1)
-SketchupFFI.attr_dict_set_value(dict, "0.0", 0.0)
-SketchupFFI.attr_dict_set_value(dict, "Float1::MIN", 1.175494e-38)
-SketchupFFI.attr_dict_set_value(dict, "Float2::MIN", Float::MIN)
-SketchupFFI.attr_dict_set_value(dict, "Float2::MAX", Float::MAX)
+attr_dict_set_value(dict, "Boolean True", true)
+attr_dict_set_value(dict, "Boolean False", false)
+attr_dict_set_value(dict, "String", "String Value®")
+attr_dict_set_value(dict, "Zero", 0)
+attr_dict_set_value(dict, "127", 127)
+attr_dict_set_value(dict, "126", 126)
+attr_dict_set_value(dict, "-2**31", -2**31)
+attr_dict_set_value(dict, "2**31 - 1", 2**31 - 1)
+attr_dict_set_value(dict, "0.0", 0.0)
+attr_dict_set_value(dict, "Float1::MIN", 1.175494e-38)
+attr_dict_set_value(dict, "Float2::MIN", Float::MIN)
+attr_dict_set_value(dict, "Float2::MAX", Float::MAX)
 
 color = SUColor.create(205, 128, 96)
-SketchupFFI.attr_dict_set_value(dict, "Color", color)
+attr_dict_set_value(dict, "Color", color)
 
 vector = SUVector3d.create(0, 0, 1)
-SketchupFFI.attr_dict_set_value(dict, "Vector3d", vector)
+attr_dict_set_value(dict, "Vector3d", vector)
 
 ary = 3.times.collect{rand(100)}
-SketchupFFI.attr_dict_set_value(dict, "Array<int>", ary)
-SketchupFFI.attr_dict_set_value(dict, "Array<String>", ['a', 'b'])
-SketchupFFI.attr_dict_set_value(dict, "Array<mixed>", [1, 2.0, 'b', "str", color])
-SketchupFFI.attr_dict_set_value(dict, "Array<nested>", [1, 2.0, [4,5, vector], 'b', "str", color])
-SketchupFFI.attr_dict_set_value(dict, "Array<nested-deep>", [1, [2, [3, [4, [5, 'a']]]]])
+attr_dict_set_value(dict, "Array<int>", ary)
+attr_dict_set_value(dict, "Array<String>", ['a', 'b'])
+attr_dict_set_value(dict, "Array<mixed>", [1, 2.0, 'b', "str", color])
+attr_dict_set_value(dict, "Array<nested>", [1, 2.0, [4,5, vector], 'b', "str", color])
+attr_dict_set_value(dict, "Array<nested-deep>", [1, [2, [3, [4, [5, 'a']]]]])
 
 #SketchupFFI.attr_dict_set_value(dict, "SUPoint3d", SUPoint3d.create(1,2,3))
 
