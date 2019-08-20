@@ -51,6 +51,12 @@ module SketchupFFI
       :x, :double,
       :y, :double
     )
+    def create(x = 0, y = 0)
+      pt = new
+      pt[:x] = x
+      pt[:y] = y
+      pt
+    end
   end
 
   class SUVector2d < FFI::Struct
