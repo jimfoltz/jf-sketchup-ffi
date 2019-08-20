@@ -125,9 +125,61 @@ module SketchupFFI
     else
       value = "N/A"
 
-
-    end
+    end # case
     value
+  end
+
+  def value_to_typed_value(value)
+
+    typed_value = SUTypedValueRef.new
+    typed_value_create(typed_value)
+    SketchupFFI.set_invalid(typed_value)
+
+    case value
+
+    when TrueClass, FalseClass
+      typed_value_set_bool(typed_value, value)
+
+    when String
+      typed_value_set_string(typed_value, value)
+
+    when Integer
+      #case value
+      #when (-2**7)..(2**7-1)
+      #  typed_value_set_byte(typed_value, value)
+      #when (-2**15)..(2**15-1)
+      #  typed_value_set_int16(typed_value, value)
+      #else # (-2**31)..(2**31-1)
+      #  typed_value_set_int32(typed_value, value)
+      #end
+      typed_value_set_int32(typed_value, value)
+
+    when Float
+      case value
+        # Based on FLT_MIN & FLT_MAX on my machine
+      when (1.175494e-38)..(3.402823e+38)
+        typed_value_set_float(typed_value, value)
+      else
+        typed_value_set_double(typed_value, value)
+      end
+
+    when SketchupFFI::SUColor
+      typed_value_set_color(typed_value, value)
+
+    when SketchupFFI::SUVector3d
+      typed_value_set_vector3d(typed_value, value)
+
+    when Array
+      values = value.collect{|v| value_to_typed_value(v)}
+      ptr = FFI::MemoryPointer.new SUTypedValueRef, values.length
+      ptr.put_array_of_pointer(0, values)
+      typed_value_set_array_items(typed_value, values.length, ptr)
+
+    else
+      fail "unhandled value: #{value.inspect} <#{value.class}>"
+
+    end # case
+    typed_value
   end
 
 end
