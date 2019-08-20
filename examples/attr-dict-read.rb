@@ -1,4 +1,5 @@
 require_relative '../lib/sketchup_ffi'
+require_relative "attr_dict_helpers"
 
 include SketchupFFI
 
@@ -12,7 +13,7 @@ model_create_from_file(model, file)
 
 dict = SUAttributeDictionaryRef.new
 model_get_attribute_dictionary(model[:ptr], "My Dictionary", dict)
-keys = SketchupFFI.attr_dict_get_keys(dict)
+keys = attr_dict_get_keys(dict)
 
 value = SUTypedValueRef.new
 typed_value_create(value)
