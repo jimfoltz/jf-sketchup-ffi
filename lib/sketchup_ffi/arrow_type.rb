@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUArrowType = enum(
     :None,
     :Slash,
@@ -6,4 +7,5 @@ module SketchupFFI
     :Closed,
     :Open
   )
+
 end
