@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUDimensionType = enum(
     :Invalid,
     :linear,
@@ -19,4 +20,5 @@ module SketchupFFI
   attach_function(:SUDimensionSetArrowType, [SUDimensionRef, SUArrowType], SUResult)
   attach_function(:SUDimensionGetFont, [SUDimensionRef, SUFontRef], SUResult)
   attach_function(:SUDimensionSetFont, [SUDimensionRef, SUFontRef], SUResult)
+
 end

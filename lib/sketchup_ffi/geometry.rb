@@ -1,5 +1,5 @@
-
 module SketchupFFI
+
   class SUPoint3d < FFI::Struct
     layout(
       :x, :double,

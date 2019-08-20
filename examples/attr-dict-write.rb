@@ -4,7 +4,6 @@ include SketchupFFI
 
 SketchupFFI.initialize
 
-
 model = SUModelRef.new
 model_create(model)
 
