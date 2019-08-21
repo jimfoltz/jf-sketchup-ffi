@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUStylePropertyType = enum(
     :SUStyleEdgesColor,
     :SUStyleEdgesExtensionsEnabled,

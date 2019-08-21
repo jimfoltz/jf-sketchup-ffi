@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUMaterialType = enum(
     :Colored,
     :Textured,

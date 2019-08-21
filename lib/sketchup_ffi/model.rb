@@ -1,5 +1,6 @@
 # model.rb
 module SketchupFFI
+
   SUModelVersion = enum(
     :SUModelVersion_SU3,
     :SUModelVersion_SU4,

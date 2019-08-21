@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUCurveType = enum(
     :Simple,
     :Arc
@@ -11,4 +12,5 @@ module SketchupFFI
   attach_function(:SUCurveGetType, [SUCurveRef, SUCurveType], SUResult)
   attach_function(:SUCurveGetNumEdges, [SUCurveRef, :size_ptr], SUResult)
   attach_function(:SUCurveGetEdges, [SUCurveRef, :size_t, SUEdgeRef, :size_ptr], SUResult)
+
 end

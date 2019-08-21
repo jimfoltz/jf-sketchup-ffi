@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUSnapBehavior = enum(
     :none, :any, :horizontal, :vertical, :sloped
   )
@@ -48,4 +49,5 @@ module SketchupFFI
   attach_function(:SUComponentDefinitionOrientFacesConsistently, [SUComponentDefinitionRef], SUResult)
   attach_function(:SUComponentDefinitionSetInsertPoint, [SUComponentDefinitionRef, SUPoint3d], SUResult)
   attach_function(:SUComponentDefinitionSetAxes, [SUComponentDefinitionRef, SUAxesRef], SUResult)
+
 end

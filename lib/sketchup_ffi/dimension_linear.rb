@@ -1,6 +1,7 @@
 require_relative "geometry"
 
 module SketchupFFI
+
   SUHorizontalTextPositionType = enum(
     :Center,
     :OutsideStart,
@@ -39,4 +40,5 @@ module SketchupFFI
   attach_function(:SUDimensionLinearSetHorizontalAlignment, [SUDimensionLinearRef, SUHorizontalTextPositionType], SUResult)
   attach_function(:SUDimensionLinearGetAlignment, [SUDimensionLinearRef, SUDimensionLinearAlignmentType], SUResult)
   attach_function(:SUDimensionLinearGetTextPosition, [SUDimensionLinearRef, SUPoint3d], SUResult)
+
 end

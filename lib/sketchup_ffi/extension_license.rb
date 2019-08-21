@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUExtensionLicenseState = enum(
     :licensed,
     :expired,
@@ -17,4 +18,5 @@ module SketchupFFI
   end
 
   attach_function(:SUGetExtensionLicense, [:string, SUExtensionLicense], SUResult)
+
 end

@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SULoopWinding = enum(
     :CCW,
     :CW

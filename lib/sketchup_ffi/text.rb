@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SUTextLeaderType = enum(
     :None,
     :ViewBased,

@@ -1,4 +1,5 @@
 module SketchupFFI
+
   class SUUVQ < FFI::Struct
     layout(
       :u, :double,

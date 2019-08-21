@@ -6,6 +6,7 @@ module SketchupFFI
       :y, :double,
       :z, :double
     )
+    # @return [SUPoint3d]
     def self.create(x = 0, y = 0, z = 0)
       pt = new
       pt[:x] = x
@@ -21,6 +22,7 @@ module SketchupFFI
       :y, :double,
       :z, :double
     )
+    # @return [SUVector3d]
     def self.create(x = 0, y = 0, z = 1)
       vector = new
       vector[:x] = x
@@ -51,7 +53,8 @@ module SketchupFFI
       :x, :double,
       :y, :double
     )
-    def create(x = 0, y = 0)
+    # @return [SUPoint2d]
+    def self.create(x = 0, y = 0)
       pt = new
       pt[:x] = x
       pt[:y] = y

@@ -1,4 +1,5 @@
 module SketchupFFI
+
   SULengthFormatType = enum(
     :DECIMAL,
     :ARCHITECTURAL,
@@ -50,4 +51,5 @@ module SketchupFFI
   attach_function(:SULengthFormatterParseString, [SULengthFormatterRef, SUStringRef, :double_ptr], SUResult)
   attach_function(:SULengthFormatterSetForceInchDisplay, [SULengthFormatterRef, :bool], SUResult)
   attach_function(:SULengthFormatterGetForceInchDisplay, [SULengthFormatterRef, :bool_ptr], SUResult)
+
 end

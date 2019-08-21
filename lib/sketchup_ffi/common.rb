@@ -1,6 +1,5 @@
 # common.rb
-# http://extensions.sketchup.com/developer_center/sketchup_c_api/sketchup/common_8h.html
-#
+
 module SketchupFFI
 
   SUResult = enum(
@@ -37,8 +36,8 @@ module SketchupFFI
   typedef :pointer, :int64_ptr
   typedef :pointer, :uint32_ptr
   typedef :pointer, :long_ptr
-  typedef :uchar, :subyte
   typedef :pointer, :enum_ptr
+  typedef :uchar, :subyte
 
   class Time_tm < FFI::Struct
     layout(

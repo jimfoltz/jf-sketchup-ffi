@@ -1,5 +1,6 @@
 
 module SketchupFFI
+
   class SUColorOrder < FFI::Struct
     layout(
       :red_index, :short,
@@ -24,4 +25,5 @@ module SketchupFFI
   attach_function(:SUImageRepGetData, [SUImageRepRef, :size_t, :uchar], SUResult)
   attach_function(:SUImageRepGetDataAsColors, [SUImageRepRef, SUColor], SUResult)
   attach_function(:SUImageRepGetColorAtUV, [SUImageRepRef, :double, :double, :bool, SUColor], SUResult)
+
 end

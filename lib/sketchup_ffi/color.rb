@@ -1,5 +1,6 @@
 # color.rb
 module SketchupFFI
+
   class SUColor < FFI::Struct
     layout(
       :red, :subyte,
@@ -7,6 +8,7 @@ module SketchupFFI
       :blue, :subyte,
       :alpha, :subyte
     )
+    # @return [SUColor]
     def self.create(red = 0, green = 0, blue = 0, alpha = 255)
       color = new
       color[:red] = red
@@ -16,6 +18,7 @@ module SketchupFFI
       color
     end
 
+    # @private
     def inspect
       "#<SUColor (#{self[:red]}, #{self[:green]}, #{self[:blue]}, #{self[:alpha]})>"
     end
@@ -26,4 +29,5 @@ module SketchupFFI
   attach_function(:SUColorGetNames, [SUStringRef, :size_t], SUResult)
   attach_function(:SUColorSetByName, [SUColor, :string], SUResult)
   attach_function(:SUColorSetByValue, [SUColor, :size_t], SUResult)
+
 end

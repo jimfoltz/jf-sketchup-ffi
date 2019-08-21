@@ -1,6 +1,8 @@
 # From Ruby Facets
 # https://github.com/rubyworks/facets/blob/master/lib/core/facets/string/snakecase.rb
 # Convert CamelCase to snake_case
+
+
 def c_name_to_ruby(name)
   name.to_s.
     gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
