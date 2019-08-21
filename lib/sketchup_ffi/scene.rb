@@ -1,5 +1,14 @@
 module SketchupFFI
-  FLAG_USE_CAMERA = 0x001
+
+  FLAG_USE_CAMERA            = 0x0001
+  FLAG_USE_RENDERING_OPTIONS = 0x0002
+  FLAG_USE_SHADOWINFO        = 0x0004
+  FLAG_USE_AXES              = 0x0008
+  FLAG_USE_HIDDEN            = 0x0010
+  FLAG_USE_LAYER_VISIBILITY  = 0x0020
+  FLAG_USE_SECTION_PLANES    = 0x0040
+  FLAG_USE_ALL               = 0x0fff
+  FLAG_NO_CAMERA             = 0x0ffe
 
   attach_function(:SUSceneToEntity, [SUSceneRef], SUEntityRef)
   attach_function(:SUSceneFromEntity, [SUEntityRef], SUSceneRef)
